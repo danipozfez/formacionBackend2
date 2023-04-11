@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="HerramientasMavenYGit:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HerramientasMavenYGit_jar</output-path>
+    <root id="archive" name="HerramientasMavenYGit.jar">
+      <element id="module-output" name="HerramientasMavenYGit" />
+    </root>
+  </artifact>
+</component>
