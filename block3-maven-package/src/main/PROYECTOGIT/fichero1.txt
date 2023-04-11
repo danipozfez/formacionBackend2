@@ -1,2 +1,6 @@
 Primera línea de fichero1
+<<<<<<< HEAD
 Tercera línea de fichero1
+=======
+Segunda línea de fichero1
+>>>>>>> cambio1
