@@ -12,7 +12,7 @@ public class Block5PropertiesApplication implements CommandLineRunner {
 	private String saludo;
 	@Value("${my.number}")
 	private String numero;
-	//esta variable de entorno se crea y se inicia del proyecto por ello se invoca al método detenv
+	//esta variable de entorno se crea y se inicia del proyecto por ello se invoca al método getenv
 	private String nuevaPropiedadEnSO = System.getenv().get("new.property");
 
 
