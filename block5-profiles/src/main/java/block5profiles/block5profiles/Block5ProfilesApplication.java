@@ -6,19 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Block5ProfilesApplication implements CommandLineRunner {
+public class Block5ProfilesApplication {
 
-	@Value("${spring.profiles.active}")
-	private String activeProfile;
-	@Value("${bd.url}")
-	private String bdUrl;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Block5ProfilesApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("Active profile "+activeProfile);
-		System.out.println("Database Url: "+bdUrl);
-	}
 }

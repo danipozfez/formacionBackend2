@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    active: Production
+bd.url: localhost:5432

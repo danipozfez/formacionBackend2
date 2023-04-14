@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    active: Integration
+bdurl: localhost:5432

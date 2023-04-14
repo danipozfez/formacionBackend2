@@ -28,6 +28,4 @@ public class Block5PropertiesApplication implements CommandLineRunner {
 		System.out.println("nueva propiedad "+nuevaPropiedadEnSO);
 
 	}
-
-
 }
