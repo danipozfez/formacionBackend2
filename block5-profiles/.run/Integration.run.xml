@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Integration" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="block5profiles.block5profiles.Block5ProfilesApplication" />
+    <module name="block5-profiles" />
+    <option name="VM_PARAMETERS" value="-Dspring.config.location=file:src/main/resources/application.INT.yml   " />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="block5profiles.block5profiles.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

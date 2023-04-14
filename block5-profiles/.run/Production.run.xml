@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Production" type="Application" factoryName="Application">
+    <envs>
+      <env name="spring.profiles.active" value="Production" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="block5profiles.block5profiles.Block5ProfilesApplication" />
+    <module name="block5-profiles" />
+    <option name="VM_PARAMETERS" value="-Dspring.config.location=file:src/main/resources/application.PRO.yml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
