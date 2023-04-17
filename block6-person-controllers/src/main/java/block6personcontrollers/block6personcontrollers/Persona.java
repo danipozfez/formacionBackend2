@@ -1,11 +1,20 @@
 package block6personcontrollers.block6personcontrollers;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Persona {
     String nombre;
     String localidad;
     int edad;
 
     public Persona() {
+    }
+
+    public Persona(String nombre, String localidad, int edad) {
+        this.nombre = nombre;
+        this.localidad = localidad;
+        this.edad = edad;
     }
 
     public String getNombre() {

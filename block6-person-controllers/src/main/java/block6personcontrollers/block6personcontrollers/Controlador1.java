@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controlador1 {
 
     @Autowired
-    PersonaService personaService;
+    Persona persona;
 
     @PostMapping("/addPersona")
     public Persona addPersona(@RequestHeader String nombre, @RequestHeader String localidad, @RequestHeader int edad) {
-        return personaService.crearPersona(nombre, localidad, edad);
+        persona = new Persona(nombre,localidad,edad);
+        return persona;
     }
 }

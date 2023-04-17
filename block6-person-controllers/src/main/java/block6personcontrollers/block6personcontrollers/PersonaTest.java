@@ -11,8 +11,5 @@ public class PersonaTest {
 		SpringApplication.run(PersonaTest.class, args);
 	}
 
-	@Bean
-	public PersonaService service(){
-		return  new PersonaService();
-	}
+
 }
