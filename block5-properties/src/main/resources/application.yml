@@ -1,4 +1,5 @@
 
-greeting: Hello world!
+greeting: ${VAR1:Hello world!}
+saludo: ${greetting}
 my:
   number: 100

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Block5PropertiesApplication implements CommandLineRunner {
 	//variables que estan en application properties y se les llama con la etiqueta @value. despues el archivo application properties se ha cambiado a yml
-	@Value("${greeting}")
+	@Value("${greeting:prueba}")
 	private String saludo;
 	@Value("${my.number}")
 	private String numero;
