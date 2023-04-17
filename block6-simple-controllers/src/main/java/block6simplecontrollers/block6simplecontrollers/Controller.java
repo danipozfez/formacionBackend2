@@ -11,6 +11,7 @@ public class Controller {
     }
     @PostMapping("/addUser")
     public Persona addPersona (@RequestBody Persona persona){
+        persona.setEdad(persona.getEdad()+1);
         return persona;
     }
 }
