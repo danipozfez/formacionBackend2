@@ -14,19 +14,20 @@ public class Controlador1 {
 
     @Autowired
     Persona persona;
+    @Autowired
+    PersonaService personaService;
+    @Autowired
+    CiudadService ciudadService;
 
     public List<Ciudad> ciudades = new ArrayList<>();
 
     @PostMapping("/addPersona")
     public Persona addPersona(@RequestHeader String nombre, @RequestHeader String localidad, @RequestHeader int edad) {
-        persona = new Persona(nombre,localidad,edad);
-        return persona;
+        return personaService.crearPersona(nombre,localidad,edad);
     }
     @PostMapping("/addCiudad")
     public Ciudad addCiudad(@RequestBody Ciudad ciudad){
-        ciudad.setNombre(ciudad.getNombre());
-        ciudad.setNumeroHabitantes(ciudad.getNumeroHabitantes());
-        ciudades.add(ciudad);
+        ciudades.add(ciudadService.crearCiudad(ciudad.getNombre(),ciudad.getNumeroHabitantes()));
         return ciudad;
     }
     public List<Ciudad> mostrarCiudades(){
