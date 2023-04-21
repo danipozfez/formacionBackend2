@@ -4,13 +4,16 @@ import crudStudent.application.StudentServiceImpl;
 import crudStudent.controller.dto.StudentInputDto;
 import crudStudent.controller.dto.StudentOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
+@RequestMapping("/student")
 public class Controller {
+
     @Autowired
     StudentServiceImpl studentService;
 
