@@ -16,7 +16,7 @@ public interface PersonaService {
 
     List<PersonaOutDto> getPersonaByName(String nombre);
 
-    List<PersonaOutDto> getListaPersonas(int pageNumber, int pageSize);
+    List<PersonaOutDto> getListaPersonas();
 
 
 }

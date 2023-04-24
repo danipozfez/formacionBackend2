@@ -47,10 +47,10 @@ public class PersonaServiceImpl implements PersonaService{
 
 
     @Override
-    public List<PersonaOutDto> getListaPersonas(int pageNumber, int pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNumber,pageSize);
+    public List<PersonaOutDto> getListaPersonas() {
 
-        return personaRepository.findAll(pageRequest).getContent().stream()
+
+        return personaRepository.findAll().stream()
                 .map(Persona::personaToOutDto).toList();
     }
 }
