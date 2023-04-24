@@ -19,9 +19,9 @@ public class ControladorModificarPersona {
     @PutMapping("/modificar/{id}")
     public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto,@PathVariable int id){
 
-        personaService.getPersonaById(id);
 
-        return  ResponseEntity.ok().body(personaService.addPersona(personaInputDto));
+
+        return  ResponseEntity.ok().body(personaService.updatePersona(personaInputDto,id));
     }
 
 }

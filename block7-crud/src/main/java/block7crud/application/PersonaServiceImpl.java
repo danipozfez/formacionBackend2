@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +22,17 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutDto updatePersona(PersonaInputDto personaInputDto) {
-        personaRepository.findById(personaInputDto.getId()).orElseThrow();
-        return personaRepository.save(new Persona(personaInputDto)).personaToOutDto();
+    public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
+
+        Optional<Persona> personaExistente = personaRepository.findById(id);
+        Persona personaActualizada = personaExistente.get();
+
+        personaActualizada.setNombre(personaInputDto.getNombre());
+        personaActualizada.setEdad(personaInputDto.getEdad());
+        personaActualizada.setPoblacion(personaInputDto.getPoblacion());
+
+
+        return personaRepository.save(personaActualizada).personaToOutDto();
     }
 
     @Override

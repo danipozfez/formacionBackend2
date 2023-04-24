@@ -9,7 +9,7 @@ import java.util.List;
 public interface PersonaService {
 
     PersonaOutDto addPersona(PersonaInputDto personaInputDto);
-    PersonaOutDto updatePersona(PersonaInputDto personaInputDto);
+    PersonaOutDto updatePersona(PersonaInputDto personaInputDto,int id);
 
     void  deletePersonaById(int id);
     PersonaOutDto getPersonaById(int id);
