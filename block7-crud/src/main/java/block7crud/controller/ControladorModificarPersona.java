@@ -16,8 +16,8 @@ public class ControladorModificarPersona {
     @Autowired
     PersonaServiceImpl personaService;
 
-    @PutMapping("{id}")
-    public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto,@RequestParam int id){
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto,@PathVariable int id){
 
         personaService.getPersonaById(id);
 
