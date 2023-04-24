@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class ControladorBorrar {
     @Autowired
     PersonaService personaService;
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>deletePersonaById(@PathVariable int id){
+    public ResponseEntity<String> deletePersonaById(@PathVariable int id) {
         //PersonaService personaService1= (PersonaService) personaService.getPersonaById(id);
-        personaService.deletePersonaById(id);
-        return ResponseEntity.ok().body("la persona con id "+id+" ha sido borrada");
+        try {
+            personaService.deletePersonaById(id);
+            return ResponseEntity.ok().body("la persona con id " + id + " ha sido borrada");
+        } catch (Exception e) {
+            return  ResponseEntity.notFound().build();
+        }
     }
 }

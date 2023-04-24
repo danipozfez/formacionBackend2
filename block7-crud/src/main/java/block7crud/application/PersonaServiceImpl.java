@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonaServiceImpl implements PersonaService{
     @Autowired
@@ -36,9 +38,12 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public List<Persona> getPersonaByName(String nombre) {
-        return null;//personaRepository.findByNombreContainingIgnoreCAse(nombre);
+    public List<PersonaOutDto> getPersonaByName(String nombre) {
+        return personaRepository.findByNombre(nombre).stream().
+                map(Persona::personaToOutDto).collect(Collectors.toList());
     }
+
+
 
 
     @Override

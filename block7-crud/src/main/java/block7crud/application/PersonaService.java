@@ -14,7 +14,7 @@ public interface PersonaService {
     void  deletePersonaById(int id);
     PersonaOutDto getPersonaById(int id);
 
-    List<Persona> getPersonaByName(String nombre);
+    List<PersonaOutDto> getPersonaByName(String nombre);
 
     List<PersonaOutDto> getListaPersonas(int pageNumber, int pageSize);
 
