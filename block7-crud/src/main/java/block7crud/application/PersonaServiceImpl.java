@@ -36,8 +36,8 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public List<PersonaOutDto> getPersonaByName(String nombre) {
-        return null;
+    public List<Persona> getPersonaByName(String nombre) {
+        return null;//personaRepository.findByNombreContainingIgnoreCAse(nombre);
     }
 
 

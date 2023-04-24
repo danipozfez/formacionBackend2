@@ -2,6 +2,7 @@ package block7crud.application;
 
 import block7crud.controller.dto.PersonaInputDto;
 import block7crud.controller.dto.PersonaOutDto;
+import block7crud.domain.Persona;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface PersonaService {
     void  deletePersonaById(int id);
     PersonaOutDto getPersonaById(int id);
 
-    List<PersonaOutDto> getPersonaByName(String nombre);
+    List<Persona> getPersonaByName(String nombre);
 
     List<PersonaOutDto> getListaPersonas(int pageNumber, int pageSize);
 
