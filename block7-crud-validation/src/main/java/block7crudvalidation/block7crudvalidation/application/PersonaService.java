@@ -8,7 +8,7 @@ import java.util.List;
 public interface PersonaService {
 
 
-    PersonaOutDto addPersona(PersonaInputDto personaInputDto);
+    PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception;
     //PersonaOutDto updatePersona(PersonaInputDto personaInputDto,int id);
 
    // void  deletePersonaById(int id);
