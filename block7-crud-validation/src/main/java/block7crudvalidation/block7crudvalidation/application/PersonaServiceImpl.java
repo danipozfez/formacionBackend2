@@ -18,21 +18,27 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     public PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception {
+
         if (personaInputDto.getUsuario() == null)
             throw new Exception(personaInputDto.getUsuario()+" es nulo");
-
-        if (personaInputDto.getUsuario().length()<6 || personaInputDto.getUsuario().length()>10)
+        else if(personaInputDto.getUsuario().length()<6 || personaInputDto.getUsuario().length()>10)
             throw new Exception(personaInputDto.getUsuario()+" no cumple la longitud");
-        if (personaInputDto.getUsuario() == null)
-            throw new RuntimeException(personaInputDto.getUsuario()+" es null");
-        if (personaInputDto.getUsuario() == null)
-            throw new RuntimeException(personaInputDto.getUsuario()+" es null");
-        if (personaInputDto.getUsuario() == null)
-            throw new RuntimeException(personaInputDto.getUsuario()+" es null");
-        if (personaInputDto.getUsuario() == null)
-            throw new RuntimeException(personaInputDto.getUsuario()+" es null");
-
-        return personaRepository.save(new Persona(personaInputDto)).personaToOutputDto();
+        else if (personaInputDto.getPassword() == null)
+            throw new RuntimeException("password es null");
+        else if (personaInputDto.getName() == null)
+            throw new RuntimeException("name es null");
+        else if (personaInputDto.getCompanyEmail() == null)
+            throw new RuntimeException("companyEmail es null");
+        else if (personaInputDto.getPersonalEmail() == null)
+            throw new RuntimeException("email personal es null");
+        else if (personaInputDto.getCity() == null)
+            throw new RuntimeException("city es null");
+        else if (personaInputDto.getActive() == null)
+            throw new RuntimeException("active es null");
+        else if (personaInputDto.getCreatedDate() == null)
+            throw new RuntimeException("created date es null");
+        else
+            return personaRepository.save(new Persona(personaInputDto)).personaToOutputDto();
 
     }
 
