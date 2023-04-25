@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonaServiceImpl implements PersonaService{
     @Autowired
@@ -26,7 +28,9 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     public List<PersonaOutDto> getPersonaByName(String nombre) {
-        return null;
+        return personaRepository.findByName(nombre).stream().
+                map(Persona::personaToOutputDto).collect(Collectors.toList());
+
     }
 
     @Override

@@ -28,4 +28,8 @@ public class Controller {
         return personaService.getListaPersonas();
     }
 
+    @GetMapping("nombre/{nombre}")
+    public List<PersonaOutDto> getByName(@PathVariable String nombre){
+        return personaService.getPersonaByName(nombre);
+    }
 }
