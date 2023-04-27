@@ -20,16 +20,26 @@ public class ControllerPersona {
     @PostMapping
     public ResponseEntity<PersonaOutDto> addPersona(@RequestBody PersonaInputDto personaInputDto) throws Exception {
         URI location = URI.create("/persona");
-        return  ResponseEntity.created(location).body(personaService.addPersona(personaInputDto));
+        return ResponseEntity.created(location).body(personaService.addPersona(personaInputDto));
 
     }
+
     @GetMapping("lista")
-    public List<PersonaOutDto> getAll(){
+    public List<PersonaOutDto> getAll() {
         return personaService.getListaPersonas();
     }
 
     @GetMapping("nombre/{nombre}")
-    public List<PersonaOutDto> getByName(@PathVariable String nombre){
+    public List<PersonaOutDto> getByName(@PathVariable String nombre) {
         return personaService.getPersonaByName(nombre);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deletePersonaById(@PathVariable int id) {
+        return ResponseEntity.ok().body("la persona con id " + id + " ha sido borrada");
+    }
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto, @PathVariable int id) {
+        return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto, id));
     }
 }

@@ -7,13 +7,15 @@ import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontrada
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonaServiceImpl implements PersonaService{
+public class PersonaServiceImpl implements PersonaService {
     @Autowired
     PersonaRepository personaRepository;
 
@@ -21,9 +23,9 @@ public class PersonaServiceImpl implements PersonaService{
     public PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception {
 
         if (personaInputDto.getUsuario() == null)
-            throw new UnsupportedOperationException(personaInputDto.getUsuario()+" es nulo");
-        else if(personaInputDto.getUsuario().length()<6 || personaInputDto.getUsuario().length()>10)
-            throw new UnprocessableEntityException(personaInputDto.getUsuario()+" no cumple la longitud");
+            throw new UnsupportedOperationException(personaInputDto.getUsuario() + " es nulo");
+        else if (personaInputDto.getUsuario().length() < 6 || personaInputDto.getUsuario().length() > 10)
+            throw new UnprocessableEntityException(personaInputDto.getUsuario() + " no cumple la longitud");
         else if (personaInputDto.getPassword() == null)
             throw new UnprocessableEntityException("password es null");
         else if (personaInputDto.getName() == null)
@@ -45,11 +47,36 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
-        return null;
+        Optional<Persona> personaExistente = personaRepository.findById(id);
+        Persona personaActualizada = personaExistente.get();
+        if (personaInputDto.getName().length() == 0) {
+            throw new EntityNotEncontradaException("persona no encontrada");
+
+        } else {
+            personaActualizada.setName(personaInputDto.getName());
+            personaActualizada.setUsuario(personaInputDto.getUsuario());
+            personaActualizada.setCity(personaInputDto.getCity());
+            personaActualizada.setPassword(personaInputDto.getPassword());
+            personaActualizada.setActive(personaInputDto.getActive());
+            personaActualizada.setCompanyEmail(personaInputDto.getCompanyEmail());
+            personaActualizada.setCreatedDate(personaInputDto.getCreatedDate());
+            personaActualizada.setImagenUrl(personaInputDto.getImagenUrl());
+            personaActualizada.setSurName(personaInputDto.getSurName());
+            personaActualizada.setPersonalEmail(personaInputDto.getPersonalEmail());
+            personaActualizada.setTerminationDate(personaInputDto.getTerminationDate());
+
+            return personaRepository.save(personaActualizada).personaToOutputDto();
+        }
+
     }
 
     @Override
     public void deletePersonaById(int id) {
+        if (personaRepository.findById(id).isEmpty())
+            throw new EntityNotEncontradaException("persona no encontrada");
+        else {
+            personaRepository.deleteById(id);
+        }
 
     }
 
