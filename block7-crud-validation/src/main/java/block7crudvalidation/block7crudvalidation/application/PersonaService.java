@@ -9,9 +9,9 @@ public interface PersonaService {
 
 
     PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception;
-    //PersonaOutDto updatePersona(PersonaInputDto personaInputDto,int id);
+    PersonaOutDto updatePersona(PersonaInputDto personaInputDto,int id);
 
-   // void  deletePersonaById(int id);
+    void  deletePersonaById(int id);
     PersonaOutDto getPersonaById(int id);
 
     List<PersonaOutDto> getPersonaByName(String nombre);

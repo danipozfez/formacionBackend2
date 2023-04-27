@@ -3,11 +3,10 @@ package block7crudvalidation.block7crudvalidation.application;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
-import block7crudvalidation.block7crudvalidation.excepciones.EntityNotFoundException;
+import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,17 +44,28 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
+    public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
+        return null;
+    }
+
+    @Override
+    public void deletePersonaById(int id) {
+
+    }
+
+    @Override
     public PersonaOutDto getPersonaById(int id) {
         return null;
     }
 
     @Override
     public List<PersonaOutDto> getPersonaByName(String nombre) {
-        if (personaRepository.findByName(nombre).stream().
-                map(Persona::personaToOutputDto).collect(Collectors.toList()).size() != 0)
-            return personaRepository.findByName(nombre).stream().map(Persona::personaToOutputDto).collect(Collectors.toList());
+        List<PersonaOutDto> listaPersonas = personaRepository.findByName(nombre).stream().
+                map(Persona::personaToOutputDto).collect(Collectors.toList());
+        if (listaPersonas.size() != 0)
+            return listaPersonas;
         else
-            throw new EntityNotFoundException("no se ha encontrado ninguna persona con ese name");
+            throw new EntityNotEncontradaException("no se ha encontrado ninguna persona con ese name");
 
     }
 
@@ -66,6 +76,6 @@ public class PersonaServiceImpl implements PersonaService{
                 .map(Persona::personaToOutputDto).toList().size() != 0)
             return personaRepository.findAll().stream().map(Persona::personaToOutputDto).toList();
         else
-            throw new EntityNotFoundException("no hay ninguna persona");
+            throw new EntityNotEncontradaException("no hay ninguna persona");
     }
 }

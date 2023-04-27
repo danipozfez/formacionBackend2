@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Data
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public class EntityNotFoundException extends RuntimeException{//no encuentra registros 404
-    public EntityNotFoundException (String message){
+public class EntityNotEncontradaException extends RuntimeException{//no encuentra registros 404
+    public EntityNotEncontradaException(String message){
         super(message);
     }
 
