@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/persona")
-public class Controller {
+public class ControllerPersona {
 
     @Autowired
     PersonaServiceImpl personaService;

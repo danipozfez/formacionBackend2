@@ -23,8 +23,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UnprocessableEntityException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<CustomError>hadlerUnprocessableEntity(UnprocessableEntityException exception){
-        CustomError customError = new CustomError(new Date(),HttpStatus.UNPROCESSABLE_ENTITY.value(), exception.getMessage());
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(customError);
-
+        CustomError customError = new CustomError(new Date(),HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customError);
     }
 }
