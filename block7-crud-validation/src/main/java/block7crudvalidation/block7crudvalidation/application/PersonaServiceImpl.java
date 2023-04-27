@@ -3,6 +3,8 @@ package block7crudvalidation.block7crudvalidation.application;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
+import block7crudvalidation.block7crudvalidation.excepciones.EntityNotFoundException;
+import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,23 +22,23 @@ public class PersonaServiceImpl implements PersonaService{
     public PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception {
 
         if (personaInputDto.getUsuario() == null)
-            throw new Exception(personaInputDto.getUsuario()+" es nulo");
+            throw new UnsupportedOperationException(personaInputDto.getUsuario()+" es nulo");
         else if(personaInputDto.getUsuario().length()<6 || personaInputDto.getUsuario().length()>10)
-            throw new Exception(personaInputDto.getUsuario()+" no cumple la longitud");
+            throw new UnprocessableEntityException(personaInputDto.getUsuario()+" no cumple la longitud");
         else if (personaInputDto.getPassword() == null)
-            throw new RuntimeException("password es null");
+            throw new UnprocessableEntityException("password es null");
         else if (personaInputDto.getName() == null)
-            throw new RuntimeException("name es null");
+            throw new UnprocessableEntityException("name es null");
         else if (personaInputDto.getCompanyEmail() == null)
-            throw new RuntimeException("companyEmail es null");
+            throw new UnprocessableEntityException("companyEmail es null");
         else if (personaInputDto.getPersonalEmail() == null)
-            throw new RuntimeException("email personal es null");
+            throw new UnprocessableEntityException("email personal es null");
         else if (personaInputDto.getCity() == null)
-            throw new RuntimeException("city es null");
+            throw new UnprocessableEntityException("city es null");
         else if (personaInputDto.getActive() == null)
-            throw new RuntimeException("active es null");
+            throw new UnprocessableEntityException("active es null");
         else if (personaInputDto.getCreatedDate() == null)
-            throw new RuntimeException("created date es null");
+            throw new UnprocessableEntityException("created date es null");
         else
             return personaRepository.save(new Persona(personaInputDto)).personaToOutputDto();
 
@@ -49,15 +51,21 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     public List<PersonaOutDto> getPersonaByName(String nombre) {
-        return personaRepository.findByName(nombre).stream().
-                map(Persona::personaToOutputDto).collect(Collectors.toList());
+        if (personaRepository.findByName(nombre).stream().
+                map(Persona::personaToOutputDto).collect(Collectors.toList()).size() != 0)
+            return personaRepository.findByName(nombre).stream().map(Persona::personaToOutputDto).collect(Collectors.toList());
+        else
+            throw new EntityNotFoundException("no se ha encontrado ninguna persona con ese name");
 
     }
 
     @Override
     public List<PersonaOutDto> getListaPersonas() {
-        return personaRepository.findAll().stream()
-                .map(Persona::personaToOutputDto).toList();
 
+        if (personaRepository.findAll().stream()
+                .map(Persona::personaToOutputDto).toList().size() != 0)
+            return personaRepository.findAll().stream().map(Persona::personaToOutputDto).toList();
+        else
+            throw new EntityNotFoundException("no hay ninguna persona");
     }
 }
