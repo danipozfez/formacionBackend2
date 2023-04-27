@@ -17,18 +17,18 @@ public class Student {
     @Id
     @GeneratedValue
     int id_student;
-    @OneToOne
-    @JoinColumn(name = "id_persona")
+   // @OneToOne
+   // @JoinColumn(name = "id_persona")
     Persona persona;
     @Column(name="horas_por_semana")
     int num_hours_week;
     @Column(name="comentarios")
     String coments;
-    @JoinColumn(name="id_profesor")
-    @ManyToOne(fetch = FetchType.LAZY)
+  //  @JoinColumn(name="id_profesor")
+   // @ManyToOne(fetch = FetchType.LAZY)
     Profesor Profesor;
     @Column(name = "rama")
     String branch;
-    @OneToOne
+    //@OneToOne
     List<Alumnos_Estudios> estudios;
 }
