@@ -1,33 +1,34 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "estudios")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+
 public class Alumnos_Estudios {
     @Id
     @GeneratedValue
-    int id_study;
-   // @ManyToOne
-    //@JoinColumn(name = "profesor_id")
+    Integer id_study;
+
+    @ManyToOne
+    @JoinColumn(name = "profesor_id")
     Profesor profesor;
-   // @ManyToMany
-    Student student;
+    @ManyToMany(cascade = CascadeType.ALL)//será una lista
+    @JoinColumn(name = "estudiante_id")
+    List <Student> students;
     @Column(name = "asignatura")
     String asignatura;
-    @Column(name="comentarios")
+    @Column(name = "comentarios")
     String comment;
     @Column(name = "initial_date")
     Date initial_date;
-    @Column(name="finish_date")
+    @Column(name = "finish_date")
     Date finish_date;
 
 }

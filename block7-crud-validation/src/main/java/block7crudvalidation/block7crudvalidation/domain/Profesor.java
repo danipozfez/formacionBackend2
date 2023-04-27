@@ -1,24 +1,23 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
-@Table(name="profesores")
+@Getter
+@Setter
+@Table(name = "profesores")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Profesor {
     @Id
     @GeneratedValue
     int id_profesor;
-    //@OneToOne
-   // @JoinColumn(name="id_persona")
+    @OneToOne
+    @JoinColumn(name = "id_persona")
     Persona persona;
-    @Column(name="comentarios")
+    @Column(name = "comentarios")
     String comments;
-    @Column(name="rama")
+    @Column(name = "rama")
     String branch;
 }
