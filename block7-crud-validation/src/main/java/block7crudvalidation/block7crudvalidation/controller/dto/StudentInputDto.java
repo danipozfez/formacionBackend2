@@ -11,25 +11,23 @@ import lombok.Setter;
 
 import java.util.List;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentInputDto {
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class Student {
+    int id_student;
 
-        int id_student;
+    Persona persona;
 
-        Persona persona;
+    int num_hours_week;
 
-        int num_hours_week;
+    String coments;
+    Profesor Profesor;
 
-        String coments;
-        Profesor Profesor;
+    String branch;
 
-        String branch;
-
-        List<Alumnos_Estudios> estudios;
-    }
+    List<Alumnos_Estudios> estudios;
 }

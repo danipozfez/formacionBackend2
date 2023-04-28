@@ -1,5 +1,7 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.w3c.dom.stylesheets.LinkStyle;
@@ -25,9 +27,31 @@ public class Student {
     String coments;
     @JoinColumn(name = "id_profesor")
     @ManyToOne(fetch = FetchType.LAZY)
-    Profesor Profesor;
+    Profesor profesor;
     @Column(name = "rama")
     String branch;
     @OneToMany
     List<Alumnos_Estudios> estudios;
+
+    public Student(StudentInputDto studentInputDto) {
+        this.id_student = id_student;
+        this.persona = persona;
+        this.num_hours_week = num_hours_week;
+        this.coments = coments;
+        this.profesor = profesor;
+        this.branch = branch;
+        this.estudios = estudios;
+    }
+
+    public StudentOutDto StudentToOutDto() {
+        return new StudentOutDto(
+        this.id_student,
+        this.persona,
+        this.num_hours_week,
+        this.coments,
+        this.profesor,
+        this.branch,
+        this.estudios
+        );
+    }
 }
