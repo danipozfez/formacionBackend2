@@ -1,6 +1,7 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import jakarta.persistence.*;
@@ -47,7 +48,7 @@ public class Student {
     public StudentOutDto StudentToOutDto() {
         return new StudentOutDto(
         this.id_student,
-        this.persona=new Persona(),
+        this.persona= new Persona(new PersonaInputDto()),
         this.num_hours_week,
         this.coments,
         this.profesor,
