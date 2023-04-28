@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import jakarta.persistence.*;
@@ -34,19 +35,19 @@ public class Student {
     List<Alumnos_Estudios> estudios;
 
     public Student(StudentInputDto studentInputDto) {
-        this.id_student = id_student;
-        this.persona = persona;
-        this.num_hours_week = num_hours_week;
-        this.coments = coments;
-        this.profesor = profesor;
-        this.branch = branch;
-        this.estudios = estudios;
+        this.id_student = studentInputDto.getId_student();
+        this.persona = studentInputDto.getPersona();
+        this.num_hours_week = studentInputDto.getNum_hours_week();
+        this.coments = studentInputDto.getComents();
+        this.profesor = studentInputDto.getProfesor();
+        this.branch = studentInputDto.getBranch();
+        this.estudios = studentInputDto.getEstudios();
     }
 
     public StudentOutDto StudentToOutDto() {
         return new StudentOutDto(
         this.id_student,
-        this.persona,
+        this.persona=new Persona(),
         this.num_hours_week,
         this.coments,
         this.profesor,
