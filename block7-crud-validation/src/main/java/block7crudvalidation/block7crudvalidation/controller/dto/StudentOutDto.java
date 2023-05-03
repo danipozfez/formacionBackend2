@@ -18,14 +18,15 @@ public class StudentOutDto {
 
     int id_student;
 
-    Persona persona;
+    //Persona persona;
 
     int num_hours_week;
 
     String coments;
-    Profesor Profesor;
+    //Profesor Profesor;
 
     String branch;
 
-    List<Alumnos_Estudios> estudios;
+    //List<Alumnos_Estudios> estudios;
+    int id_persona;
 }

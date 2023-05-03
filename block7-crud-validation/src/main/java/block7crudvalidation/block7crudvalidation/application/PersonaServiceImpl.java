@@ -82,7 +82,7 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaOutDto getPersonaById(int id) {
-        return null;
+         return personaRepository.findById(id).orElseThrow().personaToOutputDto();
     }
 
     @Override

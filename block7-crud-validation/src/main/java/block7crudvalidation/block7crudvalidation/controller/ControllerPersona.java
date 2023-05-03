@@ -43,4 +43,13 @@ public class ControllerPersona {
     public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto, @PathVariable int id) {
         return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto, id));
     }
+    @GetMapping("id/{id}")
+    public ResponseEntity<PersonaOutDto>getPersonaById(@PathVariable int id){
+        try {
+            return  ResponseEntity.ok().body(personaService.getPersonaById(id));
+
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

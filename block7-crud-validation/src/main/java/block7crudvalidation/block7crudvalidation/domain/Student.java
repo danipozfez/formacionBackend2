@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     int id_student;
     @OneToOne
     @JoinColumn(name = "id_persona")
@@ -37,23 +37,22 @@ public class Student {
 
     public Student(StudentInputDto studentInputDto) {
         this.id_student = studentInputDto.getId_student();
-        this.persona = studentInputDto.getPersona();
+        //this.persona = getPersona();
         this.num_hours_week = studentInputDto.getNum_hours_week();
         this.coments = studentInputDto.getComents();
-        this.profesor = studentInputDto.getProfesor();
+        //this.profesor = studentInputDto.getProfesor();
         this.branch = studentInputDto.getBranch();
-        this.estudios = studentInputDto.getEstudios();
+
+        //this.estudios = studentInputDto.getEstudios();
     }
 
     public StudentOutDto StudentToOutDto() {
         return new StudentOutDto(
-        this.id_student,
-        this.persona= new Persona(),
-        this.num_hours_week,
-        this.coments,
-        this.profesor,
-        this.branch,
-        this.estudios
+              this.id_student,
+                this.num_hours_week,
+                this.coments,
+                this.branch,
+                this.persona.getId()
         );
     }
 }

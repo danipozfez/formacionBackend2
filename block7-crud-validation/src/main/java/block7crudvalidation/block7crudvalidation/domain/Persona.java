@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 import java.util.Date;
@@ -37,6 +38,9 @@ public class Persona {
     Date createdDate;
     String imagenUrl;
     Date terminationDate;
+
+    @OneToOne
+    Student student;
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id = personaInputDto.getId();
