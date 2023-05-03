@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.application;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -63,6 +65,19 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentOutDto> getStudentByName(String nombre) {
         return null;
     }
+
+    /*@Override
+    public List<StudentOutDto> getStudentByName(String nombre) {
+        List<StudentOutDto> listaEstudiantes = studentRepository.findByName(nombre).stream().
+                map(Student::studentToOutDto).collect(Collectors.toList());
+        if (listaEstudiantes.size() != 0)
+            return listaEstudiantes;
+        else
+            throw new EntityNotEncontradaException("no se ha encontrado ningún estudiante con ese name");
+
+    }*/
+
+
 
     @Override
     public List<StudentOutDto> getListaStudent() {
