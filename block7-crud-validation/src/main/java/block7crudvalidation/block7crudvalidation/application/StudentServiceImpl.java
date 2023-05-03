@@ -1,6 +1,5 @@
 package block7crudvalidation.block7crudvalidation.application;
 
-import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
@@ -37,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
             persona.setStudent(student);
             student.setPersona(persona);
 
-            return studentRepository.save(student).StudentToOutDto();
+            return studentRepository.save(student).studentToOutDto();
         }
     }
 
@@ -57,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentOutDto getStudentById(int id) {
-        return null;
+        return studentRepository.findById(id).orElseThrow().studentToOutDto();
     }
 
     @Override
@@ -67,6 +66,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentOutDto> getListaStudent() {
-        return null;
+       if (studentRepository.findAll().stream().map(Student::studentToOutDto).toList().size()!=0)
+           return studentRepository.findAll().stream().map(Student::studentToOutDto).toList();
+       else
+           throw new EntityNotEncontradaException("no hay ningún estudiante");
     }
 }
