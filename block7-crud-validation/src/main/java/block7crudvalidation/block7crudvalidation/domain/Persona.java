@@ -2,10 +2,7 @@ package block7crudvalidation.block7crudvalidation.domain;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -17,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Persona {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String usuario;
@@ -39,7 +36,7 @@ public class Persona {
     String imagenUrl;
     Date terminationDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     Student student;
 
     public Persona(PersonaInputDto personaInputDto) {

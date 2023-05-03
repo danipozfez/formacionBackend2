@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Student;
+import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
@@ -47,6 +48,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudentById(int id) {
+        if (studentRepository.findById(id).isEmpty())
+            throw new EntityNotEncontradaException("estudiante no encontrado");
+        else
+            studentRepository.deleteById(id);
 
     }
 
