@@ -48,7 +48,7 @@ public class Student {
     public StudentOutDto StudentToOutDto() {
         return new StudentOutDto(
         this.id_student,
-        this.persona= new Persona(new PersonaInputDto()),
+        this.persona= new Persona(),
         this.num_hours_week,
         this.coments,
         this.profesor,
