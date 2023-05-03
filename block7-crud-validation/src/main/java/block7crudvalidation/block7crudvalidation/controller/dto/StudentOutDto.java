@@ -29,4 +29,7 @@ public class StudentOutDto {
 
     //List<Alumnos_Estudios> estudios;
     int id_persona;
+
+    String usuario;
+    String nombre;
 }

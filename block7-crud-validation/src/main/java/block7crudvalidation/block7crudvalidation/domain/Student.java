@@ -52,7 +52,9 @@ public class Student {
                 this.num_hours_week,
                 this.coments,
                 this.branch,
-                this.persona.getId()
+                this.persona.getId(),
+                this.persona.getUsuario(),
+                this.persona.getName()
         );
     }
 }
