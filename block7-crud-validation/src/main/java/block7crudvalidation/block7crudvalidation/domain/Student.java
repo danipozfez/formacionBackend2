@@ -21,7 +21,7 @@ public class Student {
     @GeneratedValue
     int id_student;
     @OneToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id",nullable = false,unique = true)
     Persona persona;
     @Column(name = "horas_por_semana")
     int num_hours_week;
