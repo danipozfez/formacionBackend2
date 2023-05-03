@@ -1,6 +1,7 @@
 package block7crudvalidation.block7crudvalidation.controller;
 
 import block7crudvalidation.block7crudvalidation.application.StudentServiceImpl;
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
@@ -46,6 +47,11 @@ public class ControllerStudent {
     @GetMapping("nombre/{nombre}")
     public List<StudentOutDto> getByName(@PathVariable String nombre) {
         return studentService.getStudentByName(nombre);
+    }
+
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<StudentOutDto> modStudent(@RequestBody StudentInputDto studentInputDto, @PathVariable int id) {
+        return ResponseEntity.ok().body(studentService.updateStudent(studentInputDto, id));
     }
 
 }

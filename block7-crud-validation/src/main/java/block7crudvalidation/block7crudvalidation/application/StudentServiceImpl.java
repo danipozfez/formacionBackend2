@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +48,20 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentOutDto updateStudent(StudentInputDto studentInputDto, int id) {
-        return null;
+        Optional<Student> estudianteExistente = studentRepository.findById(id);
+        Student estudianteActualizado = estudianteExistente.get();
+
+        if (estudianteExistente.isEmpty()) {//revisar
+            throw new EntityNotEncontradaException("persona no encontrada");
+
+        } else {
+            estudianteActualizado.setBranch(studentInputDto.getBranch());
+            estudianteActualizado.setComents(studentInputDto.getComents());
+            estudianteActualizado.setNum_hours_week(studentInputDto.getNum_hours_week());
+
+
+            return studentRepository.save(estudianteActualizado).studentToOutDto();
+        }
     }
 
     @Override
