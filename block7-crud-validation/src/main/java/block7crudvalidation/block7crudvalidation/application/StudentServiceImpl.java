@@ -9,6 +9,7 @@ import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontrada
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 public class StudentServiceImpl implements StudentService {
     @Autowired
+    //@Resource
     StudentRepository studentRepository;
     @Autowired
     PersonaRepository personaRepository;
@@ -61,21 +64,18 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id).orElseThrow().studentToOutDto();
     }
 
+
+
     @Override
     public List<StudentOutDto> getStudentByName(String nombre) {
-        return null;
-    }
-
-    /*@Override
-    public List<StudentOutDto> getStudentByName(String nombre) {
-        List<StudentOutDto> listaEstudiantes = studentRepository.findByName(nombre).stream().
+        List<StudentOutDto> listaEstudiantes = studentRepository.findByPersonaName(nombre).stream().
                 map(Student::studentToOutDto).collect(Collectors.toList());
         if (listaEstudiantes.size() != 0)
             return listaEstudiantes;
         else
             throw new EntityNotEncontradaException("no se ha encontrado ningún estudiante con ese name");
 
-    }*/
+    }
 
 
 

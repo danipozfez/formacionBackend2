@@ -43,9 +43,9 @@ public class ControllerStudent {
         return studentService.getListaStudent();
     }
 
-   /* @GetMapping("nombre/{nombre}")
+    @GetMapping("nombre/{nombre}")
     public List<StudentOutDto> getByName(@PathVariable String nombre) {
         return studentService.getStudentByName(nombre);
-    }*/
+    }
 
 }
