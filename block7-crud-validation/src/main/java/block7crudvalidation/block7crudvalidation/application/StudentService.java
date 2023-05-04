@@ -1,22 +1,24 @@
 package block7crudvalidation.block7crudvalidation.application;
 
-import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 
 import java.util.List;
 
 public interface StudentService {
-    StudentOutDto addStudent(StudentInputDto studentInputDto) throws Exception;
+    StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception;
 
-    StudentOutDto updateStudent(StudentInputDto studentInputDto, int id);
+    StudentOutDtoFull updateStudent(StudentInputDto studentInputDto, int id);
 
     void deleteStudentById(int id);
 
-    StudentOutDto getStudentById(int id);
+    StudentOutDtoFull getStudentByIdFull(int id);
 
-    List<StudentOutDto> getStudentByName(String nombre);
+    StudentOutDtoSimple getStudentByIdSimple(int id);
 
-    List<StudentOutDto> getListaStudent();
+
+    List<StudentOutDtoFull> getStudentByName(String nombre);
+
+    List<StudentOutDtoFull> getListaStudent();
 }

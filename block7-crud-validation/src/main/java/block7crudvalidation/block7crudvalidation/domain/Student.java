@@ -1,7 +1,8 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class Student {
     @GeneratedValue
     int id_student;
     @OneToOne(cascade = CascadeType.ALL)//permite que se elimine el estudiante y la persona
-    @JoinColumn(name = "id",nullable = false,unique = true)
+    @JoinColumn(name = "id", nullable = false, unique = true)
     Persona persona;
     @Column(name = "horas_por_semana")
     int num_hours_week;
@@ -43,9 +44,9 @@ public class Student {
         //this.estudios = studentInputDto.getEstudios();
     }
 
-    public StudentOutDto studentToOutDto() {
-        return new StudentOutDto(
-              this.id_student,
+    public StudentOutDtoFull studentToOutDtoFull() {
+        return new StudentOutDtoFull(
+                this.id_student,
                 this.num_hours_week,
                 this.coments,
                 this.branch,
@@ -61,6 +62,17 @@ public class Student {
                 this.persona.getCreatedDate(),
                 this.persona.getImagenUrl(),
                 this.persona.getTerminationDate()
+
+        );
+    }
+
+    public StudentOutDtoSimple studentOutDtoSimple() {
+        return new StudentOutDtoSimple(
+
+                this.id_student,
+                this.num_hours_week,
+                this.coments,
+                this.branch
 
         );
     }

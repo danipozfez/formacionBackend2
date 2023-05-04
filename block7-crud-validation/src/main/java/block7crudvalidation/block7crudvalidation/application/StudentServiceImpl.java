@@ -1,15 +1,14 @@
 package block7crudvalidation.block7crudvalidation.application;
 
-import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Student;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     PersonaRepository personaRepository;
     @Override
-    public StudentOutDto addStudent(StudentInputDto studentInputDto) throws Exception {
+    public StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception {
 
         if (studentInputDto.getNum_hours_week() == 0)
             throw new UnprocessableEntityException("número de horas obligatorio");
@@ -42,12 +41,12 @@ public class StudentServiceImpl implements StudentService {
             persona.setStudent(student);
             student.setPersona(persona);
 
-            return studentRepository.save(student).studentToOutDto();
+            return studentRepository.save(student).studentToOutDtoFull();
         }
     }
 
     @Override
-    public StudentOutDto updateStudent(StudentInputDto studentInputDto, int id) {
+    public StudentOutDtoFull updateStudent(StudentInputDto studentInputDto, int id) {
         Optional<Student> estudianteExistente = studentRepository.findById(id);
         Student estudianteActualizado = estudianteExistente.get();
 
@@ -60,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
             estudianteActualizado.setNum_hours_week(studentInputDto.getNum_hours_week());
 
 
-            return studentRepository.save(estudianteActualizado).studentToOutDto();
+            return studentRepository.save(estudianteActualizado).studentToOutDtoFull();
         }
     }
 
@@ -74,16 +73,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentOutDto getStudentById(int id) {
-        return studentRepository.findById(id).orElseThrow().studentToOutDto();
+    public StudentOutDtoFull getStudentByIdFull(int id) {
+        return studentRepository.findById(id).orElseThrow().studentToOutDtoFull();
+    }
+
+    @Override
+    public StudentOutDtoSimple getStudentByIdSimple(int id) {
+        return studentRepository.findById(id).orElseThrow().studentOutDtoSimple();
     }
 
 
-
     @Override
-    public List<StudentOutDto> getStudentByName(String nombre) {
-        List<StudentOutDto> listaEstudiantes = studentRepository.findByPersonaName(nombre).stream().
-                map(Student::studentToOutDto).collect(Collectors.toList());
+    public List<StudentOutDtoFull> getStudentByName(String nombre) {
+        List<StudentOutDtoFull> listaEstudiantes = studentRepository.findByPersonaName(nombre).stream().
+                map(Student::studentToOutDtoFull).collect(Collectors.toList());
         if (listaEstudiantes.size() != 0)
             return listaEstudiantes;
         else
@@ -94,9 +97,9 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public List<StudentOutDto> getListaStudent() {
-       if (studentRepository.findAll().stream().map(Student::studentToOutDto).toList().size()!=0)
-           return studentRepository.findAll().stream().map(Student::studentToOutDto).toList();
+    public List<StudentOutDtoFull> getListaStudent() {
+       if (studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList().size()!=0)
+           return studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList();
        else
            throw new EntityNotEncontradaException("no hay ningún estudiante");
     }

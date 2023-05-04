@@ -1,21 +1,17 @@
 package block7crudvalidation.block7crudvalidation.controller.dto;
 
-import block7crudvalidation.block7crudvalidation.domain.Alumnos_Estudios;
-import block7crudvalidation.block7crudvalidation.domain.Persona;
-import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentOutDto {
+public class StudentOutDtoFull {
 
     int id_student;
 
@@ -49,5 +45,6 @@ public class StudentOutDto {
     Date createdDate;
     String imagenUrl;
     Date terminationDate;
+
 
 }
