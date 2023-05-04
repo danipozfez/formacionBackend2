@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -31,5 +32,22 @@ public class StudentOutDto {
     int id_persona;
 
     String usuario;
-    String nombre;
+
+    String password;
+
+    String name;
+    String surName;
+
+    String companyEmail;
+
+    String personalEmail;
+
+    String city;
+
+    Boolean active;
+
+    Date createdDate;
+    String imagenUrl;
+    Date terminationDate;
+
 }

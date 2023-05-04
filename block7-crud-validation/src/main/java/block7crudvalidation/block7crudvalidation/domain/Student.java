@@ -51,7 +51,17 @@ public class Student {
                 this.branch,
                 this.persona.getId(),
                 this.persona.getUsuario(),
-                this.persona.getName()
+                this.persona.getPassword(),
+                this.persona.getName(),
+                this.persona.getSurName(),
+                this.persona.getCompanyEmail(),
+                this.persona.getPersonalEmail(),
+                this.persona.getCity(),
+                this.persona.getActive(),
+                this.persona.getCreatedDate(),
+                this.persona.getImagenUrl(),
+                this.persona.getTerminationDate()
+
         );
     }
 }
