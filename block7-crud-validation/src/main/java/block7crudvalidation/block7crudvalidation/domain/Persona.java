@@ -38,6 +38,8 @@ public class Persona {
 
     @OneToOne(cascade = CascadeType.ALL)
     Student student;
+    @OneToOne(cascade = CascadeType.ALL)
+    Profesor profesor;
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id = personaInputDto.getId();

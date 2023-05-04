@@ -1,5 +1,7 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +22,19 @@ public class Profesor {
     String comments;
     @Column(name = "rama")
     String branch;
+
+    public Profesor(ProfesorInputDto profesorInputDto) {
+        this.id_profesor = profesorInputDto.getId_profesor();
+        this.comments = profesorInputDto.getComments();
+        this.branch = profesorInputDto.getBranch();
+    }
+
+    public ProfesorOutputDto profesorToOutputDto() {
+        return new ProfesorOutputDto(
+                this.id_profesor,
+                this.comments,
+                this.branch,
+                this.persona.getId()
+        );
+    }
 }
