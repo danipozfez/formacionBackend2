@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDt
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import block7crudvalidation.block7crudvalidation.domain.Student;
+import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
@@ -49,6 +50,10 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public void deleteProfesorById(int id) {
 
+        if (profesorRepository.findById(id).isEmpty())
+            throw new EntityNotEncontradaException("profesor no encontrado");
+        else
+            profesorRepository.deleteById(id);
     }
 
     @Override

@@ -8,10 +8,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -27,4 +24,11 @@ public class ControllerProfesor {
         URI location = URI.create("/profesor");
         return ResponseEntity.created(location).body(profesorService.addProfesor(profesorInputDto));
     }
+
+    @DeleteMapping("delete/{id}")//on delete cascade???
+    public ResponseEntity<String> deleteProfesorById(@PathVariable int id) {
+        profesorService.deleteProfesorById(id);
+        return ResponseEntity.ok().body("el profesor con id " + id + " ha sido borrado");
+    }
+
 }
