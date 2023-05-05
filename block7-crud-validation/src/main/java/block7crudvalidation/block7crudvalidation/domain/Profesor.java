@@ -2,6 +2,7 @@ package block7crudvalidation.block7crudvalidation.domain;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,10 @@ public class Profesor {
     String comments;
     @Column(name = "rama")
     String branch;
+
+    @JoinColumn(name = "id_Student")
+    @ManyToOne(fetch = FetchType.LAZY)
+    Student student;
 
     public Profesor(ProfesorInputDto profesorInputDto) {
         this.id_profesor = profesorInputDto.getId_profesor();
