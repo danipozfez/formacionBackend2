@@ -1,0 +1,30 @@
+package block7crudvalidation.block7crudvalidation.controller;
+
+import block7crudvalidation.block7crudvalidation.application.ProfesorServiceImpl;
+import block7crudvalidation.block7crudvalidation.application.StudentServiceImpl;
+import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
+
+@RestController
+@RequestMapping("/profesor")
+public class ControllerProfesor {
+
+    @Autowired
+    ProfesorServiceImpl profesorService;
+
+    @PostMapping
+    public ResponseEntity<ProfesorOutputDto> addProfesor(@RequestBody ProfesorInputDto profesorInputDto) throws Exception {
+        URI location = URI.create("/profesor");
+        return ResponseEntity.created(location).body(profesorService.addProfesor(profesorInputDto));
+    }
+}
