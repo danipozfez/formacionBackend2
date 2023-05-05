@@ -6,6 +6,8 @@ import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,9 +26,9 @@ public class Profesor {
     @Column(name = "rama")
     String branch;
 
-    @JoinColumn(name = "id_Student")
-    @ManyToOne(fetch = FetchType.LAZY)
-    Student student;
+    //@JoinColumn(name = "id_Student")
+    @OneToMany(fetch = FetchType.LAZY)
+    List<Student> estudiantes;
 
     public Profesor(ProfesorInputDto profesorInputDto) {
         this.id_profesor = profesorInputDto.getId_profesor();
