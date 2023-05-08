@@ -4,10 +4,12 @@ import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
+import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import block7crudvalidation.block7crudvalidation.domain.Student;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
+import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
     @Autowired
     PersonaRepository personaRepository;
+
+    @Autowired
+    ProfesorRepository profesorRepository;
 
     @Override
     public StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception {
@@ -65,8 +70,14 @@ public class StudentServiceImpl implements StudentService {
             estudianteActualizado.setComents(studentInputDto.getComents());
             estudianteActualizado.setNum_hours_week(studentInputDto.getNum_hours_week());
 
+            Optional<Profesor> profesor = profesorRepository.findById(studentInputDto.getIdProfesorAsignado());
 
-            return studentRepository.save(estudianteActualizado).studentToOutDtoFull();
+            if (profesor.isPresent()) {
+                estudianteActualizado.setIdProfesorAsignado(studentInputDto.getIdProfesorAsignado());
+                return studentRepository.save(estudianteActualizado).studentToOutDtoFull();
+            } else {
+                throw new UnprocessableEntityException("el id del profesor no existe");
+            }
         }
     }
 
