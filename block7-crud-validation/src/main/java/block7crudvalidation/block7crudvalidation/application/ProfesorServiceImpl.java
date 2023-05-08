@@ -40,8 +40,11 @@ public class ProfesorServiceImpl implements ProfesorService {
 
             persona.setProfesor(profesor);
             profesor.setPersona(persona);
-
-            return profesorRepository.save(profesor).profesorToOutputDto();
+            if (persona.getOcupado() == null) {
+                persona.setOcupado("profesor");
+                return profesorRepository.save(profesor).profesorToOutputDto();
+            }
+            throw new UnprocessableEntityException("esta persona ya esta asignada como estudiante");
         }
     }
 
@@ -89,7 +92,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public List<ProfesorOutputDto> getListaProfesores() {
-        if (profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList().size()!=0)
+        if (profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList().size() != 0)
             return profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList();
         else
             throw new EntityNotEncontradaException("no hay ningún profesor");

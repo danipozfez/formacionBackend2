@@ -36,6 +36,8 @@ public class Persona {
     String imagenUrl;
     Date terminationDate;
 
+    String ocupado;
+
     @OneToOne(cascade = CascadeType.ALL)
     Student student;
     @OneToOne(cascade = CascadeType.ALL)
@@ -54,6 +56,7 @@ public class Persona {
         this.createdDate = personaInputDto.getCreatedDate();
         this.imagenUrl = personaInputDto.getImagenUrl();
         this.terminationDate = personaInputDto.getTerminationDate();
+        this.ocupado=personaInputDto.getOcupado();
     }
 
     public PersonaOutDto personaToOutputDto() {
@@ -69,7 +72,8 @@ public class Persona {
                 this.active,
                 this.createdDate,
                 this.imagenUrl,
-                this.terminationDate
+                this.terminationDate,
+                this.ocupado
         );
     }
 }

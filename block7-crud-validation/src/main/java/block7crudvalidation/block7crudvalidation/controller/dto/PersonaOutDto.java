@@ -32,4 +32,5 @@ public class PersonaOutDto {
     Date createdDate;
     String imagenUrl;
     Date terminationDate;
+    String ocupado;
 }

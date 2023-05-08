@@ -24,6 +24,7 @@ public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
     @Autowired
     PersonaRepository personaRepository;
+
     @Override
     public StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception {
 
@@ -33,15 +34,21 @@ public class StudentServiceImpl implements StudentService {
             throw new UnprocessableEntityException("rama vacía");
         else {
             //persona= new Persona(persona.getId(),persona.getUsuario(), persona.getPassword(), persona.getName(), persona.getSurName(), persona.getCompanyEmail(), persona.getPersonalEmail(), persona.getCity(), persona.getActive(),persona.getCreatedDate(), persona.getImagenUrl(), persona.getTerminationDate());
-            if(studentRepository.existsById(studentInputDto.getId_persona()))
+            if (studentRepository.existsById(studentInputDto.getId_persona()))
                 throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
+
             Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
             Student student = new Student(studentInputDto);
 
             persona.setStudent(student);
             student.setPersona(persona);
 
-            return studentRepository.save(student).studentToOutDtoFull();
+            if (persona.getOcupado() == null) {
+                persona.setOcupado("estudiante");
+                return studentRepository.save(student).studentToOutDtoFull();
+
+            }
+            throw new UnprocessableEntityException("esta persona ya está asignada como profesor");
         }
     }
 
@@ -95,12 +102,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
     @Override
     public List<StudentOutDtoFull> getListaStudent() {
-       if (studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList().size()!=0)
-           return studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList();
-       else
-           throw new EntityNotEncontradaException("no hay ningún estudiante");
+        if (studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList().size() != 0)
+            return studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList();
+        else
+            throw new EntityNotEncontradaException("no hay ningún estudiante");
     }
 }
