@@ -32,4 +32,5 @@ public class StudentInputDto {
    // List<Alumnos_Estudios> estudios;
 
     int id_persona;
+    int idProfesorAsignado;
 }

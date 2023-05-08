@@ -25,13 +25,16 @@ public class Student {
     int num_hours_week;
     @Column(name = "comentarios")
     String coments;
-    @JoinColumn(name = "id_profesor")
+    @JoinColumn(name = "id_profesor", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     Profesor profesor;
     @Column(name = "rama")
     String branch;
     @OneToMany
     List<Alumnos_Estudios> estudios;
+
+    int idProfesorAsignado;
+
 
     public Student(StudentInputDto studentInputDto) {
         this.id_student = studentInputDto.getId_student();
@@ -51,6 +54,7 @@ public class Student {
                 this.coments,
                 this.branch,
                 this.persona.getId(),
+                this.idProfesorAsignado,
                 this.persona.getUsuario(),
                 this.persona.getPassword(),
                 this.persona.getName(),
@@ -61,7 +65,10 @@ public class Student {
                 this.persona.getActive(),
                 this.persona.getCreatedDate(),
                 this.persona.getImagenUrl(),
-                this.persona.getTerminationDate()
+                this.persona.getTerminationDate(),
+                this.persona.getOcupado()
+
+
 
         );
     }
@@ -73,6 +80,7 @@ public class Student {
                 this.num_hours_week,
                 this.coments,
                 this.branch
+
 
         );
     }

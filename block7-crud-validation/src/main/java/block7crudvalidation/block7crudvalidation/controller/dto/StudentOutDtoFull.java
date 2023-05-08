@@ -27,6 +27,8 @@ public class StudentOutDtoFull {
     //List<Alumnos_Estudios> estudios;
     int id_persona;
 
+    int idProfesorAsignado;
+
     String usuario;
 
     String password;
@@ -45,6 +47,9 @@ public class StudentOutDtoFull {
     Date createdDate;
     String imagenUrl;
     Date terminationDate;
+
+    String ocupacion;
+
 
 
 }
