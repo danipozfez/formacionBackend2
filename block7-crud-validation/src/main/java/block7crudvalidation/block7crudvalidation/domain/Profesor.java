@@ -18,7 +18,7 @@ public class Profesor {
     @Id
     @GeneratedValue
     int id_profesor;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona")
     Persona persona;
     @Column(name = "comentarios")

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/profesor")
@@ -29,6 +30,33 @@ public class ControllerProfesor {
     public ResponseEntity<String> deleteProfesorById(@PathVariable int id) {
         profesorService.deleteProfesorById(id);
         return ResponseEntity.ok().body("el profesor con id " + id + " ha sido borrado");
+    }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<Object> gerProfesorId(@PathVariable int id) {
+
+            try {
+                return ResponseEntity.ok().body(profesorService.getProfesorById(id));
+
+            } catch (Exception e) {
+                return ResponseEntity.notFound().build();
+            }
+
+    }
+    @GetMapping("lista")
+    public List<ProfesorOutputDto> getAll() {
+
+        return profesorService.getListaProfesores();
+    }
+
+    @GetMapping("nombre/{nombre}")
+    public List<ProfesorOutputDto> getByName(@PathVariable String nombre) {
+        return profesorService.getProfesorByName(nombre);
+    }
+
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<ProfesorOutputDto> modStudent(@RequestBody ProfesorInputDto profesorInputDto, @PathVariable int id) {
+        return ResponseEntity.ok().body(profesorService.updateProfesor(profesorInputDto, id));
     }
 
 }

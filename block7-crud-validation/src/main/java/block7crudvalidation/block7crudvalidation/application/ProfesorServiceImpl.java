@@ -2,6 +2,7 @@ package block7crudvalidation.block7crudvalidation.application;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import block7crudvalidation.block7crudvalidation.domain.Student;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfesorServiceImpl implements ProfesorService {
@@ -44,7 +47,19 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public ProfesorOutputDto updateProfesor(ProfesorInputDto profesorInputDto, int id) {
-        return null;
+        Optional<Profesor> profesorExistente = profesorRepository.findById(id);
+        Profesor profesorActualizado = profesorExistente.get();
+
+        if (profesorExistente.isEmpty()) {//revisar
+            throw new EntityNotEncontradaException("persona no encontrada");
+
+        } else {
+            profesorActualizado.setBranch(profesorInputDto.getBranch());
+            profesorActualizado.setComments(profesorInputDto.getComments());
+
+
+            return profesorRepository.save(profesorActualizado).profesorToOutputDto();
+        }
     }
 
     @Override
@@ -58,16 +73,26 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public ProfesorOutputDto getProfesorById(int id) {
-        return null;
+        return profesorRepository.findById(id).orElseThrow().profesorToOutputDto();
+
     }
 
     @Override
     public List<ProfesorOutputDto> getProfesorByName(String nombre) {
-        return null;
+        List<ProfesorOutputDto> listaProfesores = profesorRepository.findByPersonaName(nombre).stream().
+                map(Profesor::profesorToOutputDto).collect(Collectors.toList());
+        if (listaProfesores.size() != 0)
+            return listaProfesores;
+        else
+            throw new EntityNotEncontradaException("no se ha encontrado ningún profesor con ese name");
     }
 
     @Override
     public List<ProfesorOutputDto> getListaProfesores() {
-        return null;
+        if (profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList().size()!=0)
+            return profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList();
+        else
+            throw new EntityNotEncontradaException("no hay ningún profesor");
+
     }
 }
