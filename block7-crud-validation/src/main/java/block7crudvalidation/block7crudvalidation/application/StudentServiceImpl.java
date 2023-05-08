@@ -120,4 +120,15 @@ public class StudentServiceImpl implements StudentService {
         else
             throw new EntityNotEncontradaException("no hay ningún estudiante");
     }
+
+    @Override
+    public List<StudentOutDtoFull> getlistaStudentByIdProfesor(int idProfesorAsignado) {
+        List<StudentOutDtoFull>estudiantes= studentRepository.findById(idProfesorAsignado).stream().
+                map(Student::studentToOutDtoFull).collect(Collectors.toList());
+        if (estudiantes.size() != 0)
+            return estudiantes;
+
+        throw new EntityNotEncontradaException("no hay estudiantes asignados al profesor con id " + idProfesorAsignado);
+
+    }
 }

@@ -1,11 +1,7 @@
 package block7crudvalidation.block7crudvalidation.controller;
 
 import block7crudvalidation.block7crudvalidation.application.ProfesorServiceImpl;
-import block7crudvalidation.block7crudvalidation.application.StudentServiceImpl;
-import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import block7crudvalidation.block7crudvalidation.controller.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +53,12 @@ public class ControllerProfesor {
     @PutMapping("/modificar/{id}")
     public ResponseEntity<ProfesorOutputDto> modStudent(@RequestBody ProfesorInputDto profesorInputDto, @PathVariable int id) {
         return ResponseEntity.ok().body(profesorService.updateProfesor(profesorInputDto, id));
+    }
+
+    @GetMapping("listaestudiantes/{idProfesorAsignado}")
+    public List<StudentOutDtoSimple> getEtudiantes(@PathVariable int idProfesorAsignado) {
+
+        return profesorService.getListaEstuantesPorProfesor(idProfesorAsignado);
     }
 
 }

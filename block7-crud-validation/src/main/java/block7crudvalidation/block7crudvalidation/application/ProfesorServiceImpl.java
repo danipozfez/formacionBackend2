@@ -3,6 +3,7 @@ package block7crudvalidation.block7crudvalidation.application;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import block7crudvalidation.block7crudvalidation.domain.Student;
@@ -10,9 +11,11 @@ import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontrada
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
+import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +27,8 @@ public class ProfesorServiceImpl implements ProfesorService {
     ProfesorRepository profesorRepository;
     @Autowired
     PersonaRepository personaRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     @Override
     public ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) {
@@ -96,6 +101,23 @@ public class ProfesorServiceImpl implements ProfesorService {
             return profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList();
         else
             throw new EntityNotEncontradaException("no hay ningún profesor");
+
+    }
+
+    @Override
+    public List<StudentOutDtoSimple> getListaEstuantesPorProfesor(int id) {
+        List<StudentOutDtoSimple>estudiantesPorProfesor= new ArrayList<>();
+       List<StudentOutDtoSimple>estudiantes = studentRepository.findAll().stream().
+                map(Student::studentOutDtoSimple).collect(Collectors.toList());
+
+        for (StudentOutDtoSimple student:estudiantes) {
+            if (student.getIdProfesorAsignado()==id)
+                estudiantesPorProfesor.add(student);
+        }
+        if (estudiantesPorProfesor.size() != 0)
+            return estudiantesPorProfesor;
+
+        throw new EntityNotEncontradaException("no hay estudiantes asignados al profesor con id " + id);
 
     }
 }

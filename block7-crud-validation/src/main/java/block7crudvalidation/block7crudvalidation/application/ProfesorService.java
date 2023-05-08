@@ -2,6 +2,7 @@ package block7crudvalidation.block7crudvalidation.application;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface ProfesorService {
     List<ProfesorOutputDto> getProfesorByName(String nombre);
 
     List<ProfesorOutputDto> getListaProfesores();
+
+    List<StudentOutDtoSimple> getListaEstuantesPorProfesor(int id);
 
 }

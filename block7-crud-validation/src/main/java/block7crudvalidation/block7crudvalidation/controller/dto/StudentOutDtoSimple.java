@@ -24,6 +24,8 @@ public class StudentOutDtoSimple {
 
     String branch;
 
+    int idProfesorAsignado;
+
     //List<Alumnos_Estudios> estudios;
 
 

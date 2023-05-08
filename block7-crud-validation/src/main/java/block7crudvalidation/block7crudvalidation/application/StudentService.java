@@ -21,4 +21,6 @@ public interface StudentService {
     List<StudentOutDtoFull> getStudentByName(String nombre);
 
     List<StudentOutDtoFull> getListaStudent();
+
+    List<StudentOutDtoFull>getlistaStudentByIdProfesor(int id);
 }

@@ -79,7 +79,8 @@ public class Student {
                 this.id_student,
                 this.num_hours_week,
                 this.coments,
-                this.branch
+                this.branch,
+                this.idProfesorAsignado
 
 
         );
