@@ -27,5 +27,5 @@ public interface StudentService {
 
     List<AsignaturaOutDto>getListaAsginaturaPorEstudiante(int id);
 
-    List<AsignaturaOutDto>addAsignaturaAEstudiante(List<AsignaturaOutDto>listaPorEstudiante, int id);
+    List<AsignaturaOutDto>addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
 }
