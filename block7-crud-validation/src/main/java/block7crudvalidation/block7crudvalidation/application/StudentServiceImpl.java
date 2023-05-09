@@ -146,16 +146,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<AsignaturaOutDto> addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
-        List<AsignaturaOutDto> lista= new ArrayList<>();//lista de asignaturas que mostrará el estudiante se inicia vacía
-        //hay que parsear la lista a objetos asignatura
+    public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
+        Student estudianteExistente = studentRepository.findById(id).orElseThrow();
+        Asignatura asignatura= null;
 
-        List<AsignaturaOutDto> listaIntroducida= asignaturaRepository.findAll().stream().
-                map(Asignatura::asignaturaToOutDto).collect(Collectors.toList());
+        for (Integer ids : listaDeIdAsignatura) {
+            asignatura = asignaturaRepository.findById(ids).orElseThrow();
+            estudianteExistente.getAsignaturas().add(asignatura);
+        }
 
-        for(AsignaturaOutDto asignatura:listaIntroducida)
-            lista.add(asignatura);
-        return lista;
+        return studentRepository.save(estudianteExistente).studentToOutDtoFull();
     }
 
 

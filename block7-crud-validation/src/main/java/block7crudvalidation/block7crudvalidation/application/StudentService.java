@@ -4,8 +4,10 @@ import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
+import block7crudvalidation.block7crudvalidation.domain.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
     StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception;
@@ -27,5 +29,5 @@ public interface StudentService {
 
     List<AsignaturaOutDto>getListaAsginaturaPorEstudiante(int id);
 
-    List<AsignaturaOutDto>addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
+    StudentOutDtoFull addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
 }
