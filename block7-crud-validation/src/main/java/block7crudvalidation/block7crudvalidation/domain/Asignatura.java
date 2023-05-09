@@ -6,17 +6,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "estudios")
 @Getter
 @Setter
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Asignatura {
     @Id
     @GeneratedValue
-    Integer id_study;
+    Integer idAsignatura;
 
     @ManyToOne
     @JoinColumn(name = "profesor_id")
@@ -39,21 +39,21 @@ public class Asignatura {
     int id_student;
 
     public Asignatura(AsignaturaInputDto asignaturaInputDto) {
-        this.id_study = asignaturaInputDto.getId_study();
+        this.idAsignatura = asignaturaInputDto.getIdAsignatura();
         this.nombreAsignatura = asignaturaInputDto.getNombreAsignatura();
         this.comment = asignaturaInputDto.getComment();
         this.initial_date = asignaturaInputDto.getInitial_date();
         this.finish_date = asignaturaInputDto.getFinish_date();
     }
 
-    public AsignaturaOutDto alumnosEstudiosToOutDto() {
+    public AsignaturaOutDto asignaturaToOutDto() {
         return new AsignaturaOutDto(
-                this.id_study,
+                this.idAsignatura,
                 this.nombreAsignatura,
                 this.comment,
                 this.initial_date,
-                this.finish_date,
-                this.student.id_student
+                this.finish_date
+                //this.student.id_student
         );
     }
 

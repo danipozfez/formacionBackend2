@@ -12,10 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class AsignaturaInputDto {
 
-    Integer id_study;
+    Integer idAsignatura;
     String nombreAsignatura;
     String comment;
     Date initial_date;
     Date finish_date;
-    int id_student;
+   // int id_student;
 }
