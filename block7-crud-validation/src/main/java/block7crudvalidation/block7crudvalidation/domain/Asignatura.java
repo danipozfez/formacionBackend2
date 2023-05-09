@@ -1,7 +1,7 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
-import block7crudvalidation.block7crudvalidation.controller.dto.AlumnosEstudiosInputDto;
-import block7crudvalidation.block7crudvalidation.controller.dto.AlumnosEstudiosOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaInputDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 
-public class AlumnosEstudios {
+public class Asignatura {
     @Id
     @GeneratedValue
     Integer id_study;
@@ -23,9 +23,9 @@ public class AlumnosEstudios {
     Profesor profesor;
     // @OneToMany(cascade = CascadeType.ALL)//será una lista
     // @JoinColumn(name = "estudiante_id")
-    List<Student> students;
-    @JoinColumn(name = "id_student")
-    @OneToMany
+   // List<Student> students;
+    @JoinColumn(name = "id_estudiante")
+    @ManyToOne
     Student student;
     @Column(name = "asignatura")
     String nombreAsignatura;
@@ -38,16 +38,16 @@ public class AlumnosEstudios {
 
     int id_student;
 
-    public AlumnosEstudios(AlumnosEstudiosInputDto alumnosEstudiosInputDto) {
-        this.id_study = alumnosEstudiosInputDto.getId_study();
-        this.nombreAsignatura = alumnosEstudiosInputDto.getNombreAsignatura();
-        this.comment = alumnosEstudiosInputDto.getComment();
-        this.initial_date = alumnosEstudiosInputDto.getInitial_date();
-        this.finish_date = alumnosEstudiosInputDto.getFinish_date();
+    public Asignatura(AsignaturaInputDto asignaturaInputDto) {
+        this.id_study = asignaturaInputDto.getId_study();
+        this.nombreAsignatura = asignaturaInputDto.getNombreAsignatura();
+        this.comment = asignaturaInputDto.getComment();
+        this.initial_date = asignaturaInputDto.getInitial_date();
+        this.finish_date = asignaturaInputDto.getFinish_date();
     }
 
-    public AlumnosEstudiosOutDto alumnosEstudiosToOutDto() {
-        return new AlumnosEstudiosOutDto(
+    public AsignaturaOutDto alumnosEstudiosToOutDto() {
+        return new AsignaturaOutDto(
                 this.id_study,
                 this.nombreAsignatura,
                 this.comment,

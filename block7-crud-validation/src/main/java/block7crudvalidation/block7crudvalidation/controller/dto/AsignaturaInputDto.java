@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlumnosEstudiosInputDto {
+public class AsignaturaInputDto {
 
     Integer id_study;
     String nombreAsignatura;

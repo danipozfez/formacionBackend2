@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlumnosEstudiosOutDto {
+public class AsignaturaOutDto {
     Integer id_study;
     String nombreAsignatura;
     String comment;
