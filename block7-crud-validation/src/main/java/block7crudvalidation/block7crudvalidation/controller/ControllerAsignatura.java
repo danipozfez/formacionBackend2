@@ -25,4 +25,15 @@ public class ControllerAsignatura {
     public List<AsignaturaOutDto>getAll(){
         return asignaturaService.getListaAsignaturas();
     }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String>deleteAsignaturaById(@PathVariable int id){
+        asignaturaService.deleteAsignaturaById(id);
+        return ResponseEntity.ok().body("asignatura con id:"+id +" borrada");
+    }
+
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<AsignaturaOutDto> modAsignatura(@RequestBody AsignaturaInputDto asignaturaInputDto, @PathVariable int id){
+        return ResponseEntity.ok().body(asignaturaService.updateAsignatura(asignaturaInputDto, id));
+    }
 }

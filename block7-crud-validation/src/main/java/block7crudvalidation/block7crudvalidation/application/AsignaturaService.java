@@ -9,7 +9,7 @@ public interface AsignaturaService {
 
     AsignaturaOutDto addAsignatura (AsignaturaInputDto asignaturaInputDto);
 
-    AsignaturaOutDto updateAsignatura(AsignaturaInputDto asignaturaInputDto);
+    AsignaturaOutDto updateAsignatura(AsignaturaInputDto asignaturaInputDto, int id);
 
     void deleteAsignaturaById(int id);
 

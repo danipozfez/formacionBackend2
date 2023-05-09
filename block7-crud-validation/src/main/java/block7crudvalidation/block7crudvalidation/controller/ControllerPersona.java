@@ -37,7 +37,7 @@ public class ControllerPersona {
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deletePersonaById(@PathVariable int id) {
         personaService.deletePersonaById(id);
-        return ResponseEntity.ok().body("la persona con id " + id + " ha sido borrada");
+        return ResponseEntity.ok().body("la persona con id:" + id + " ha sido borrada");
     }
 
     @PutMapping("/modificar/{id}")
