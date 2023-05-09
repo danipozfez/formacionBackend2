@@ -5,26 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentInputDto {
+public class AlumnosEstudiosInputDto {
 
+    Integer id_study;
+    String nombreAsignatura;
+    String comment;
+    Date initial_date;
+    Date finish_date;
     int id_student;
-
-    //Persona persona;
-
-    int num_hours_week;
-
-    String coments;
-  //  Profesor Profesor;
-
-    String branch;
-
-   // List<Alumnos_Estudios> estudios;
-
-    int id_persona;
-    int idProfesorAsignado;
 }

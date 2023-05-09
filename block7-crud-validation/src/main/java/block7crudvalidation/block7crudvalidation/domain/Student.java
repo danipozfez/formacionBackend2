@@ -31,7 +31,7 @@ public class Student {
     @Column(name = "rama")
     String branch;
     @OneToMany
-    List<Alumnos_Estudios> estudios;
+    List<AlumnosEstudios> estudios;
 
     int idProfesorAsignado;
 
