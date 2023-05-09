@@ -106,12 +106,12 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public List<StudentOutDtoSimple> getListaEstuantesPorProfesor(int id) {
-        List<StudentOutDtoSimple>estudiantesPorProfesor= new ArrayList<>();
-       List<StudentOutDtoSimple>estudiantes = studentRepository.findAll().stream().
+        List<StudentOutDtoSimple> estudiantesPorProfesor = new ArrayList<>();
+        List<StudentOutDtoSimple> estudiantes = studentRepository.findAll().stream().
                 map(Student::studentOutDtoSimple).collect(Collectors.toList());
 
-        for (StudentOutDtoSimple student:estudiantes) {
-            if (student.getIdProfesorAsignado()==id)
+        for (StudentOutDtoSimple student : estudiantes) {
+            if (student.getIdProfesorAsignado() == id)
                 estudiantesPorProfesor.add(student);
         }
         if (estudiantesPorProfesor.size() != 0)

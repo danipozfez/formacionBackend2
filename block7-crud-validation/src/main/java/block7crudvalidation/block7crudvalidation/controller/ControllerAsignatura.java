@@ -3,6 +3,7 @@ package block7crudvalidation.block7crudvalidation.controller;
 import block7crudvalidation.block7crudvalidation.application.AsignaturaServiceImpl;
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class ControllerAsignatura {
     }
     @GetMapping("lista")
     public List<AsignaturaOutDto>getAll(){
+
         return asignaturaService.getListaAsignaturas();
     }
 
@@ -35,5 +37,16 @@ public class ControllerAsignatura {
     @PutMapping("/modificar/{id}")
     public ResponseEntity<AsignaturaOutDto> modAsignatura(@RequestBody AsignaturaInputDto asignaturaInputDto, @PathVariable int id){
         return ResponseEntity.ok().body(asignaturaService.updateAsignatura(asignaturaInputDto, id));
+    }
+
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<AsignaturaOutDto> getAsignaturaById(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok().body(asignaturaService.getAsignaturaById(id));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

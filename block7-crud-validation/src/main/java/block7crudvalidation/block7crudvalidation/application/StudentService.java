@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.application;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
@@ -23,4 +24,8 @@ public interface StudentService {
     List<StudentOutDtoFull> getListaStudent();
 
     List<StudentOutDtoFull>getlistaStudentByIdProfesor(int id);
+
+    List<AsignaturaOutDto>getListaAsginaturaPorEstudiante(int id);
+
+    List<AsignaturaOutDto>addAsignaturaAEstudiante(List<AsignaturaOutDto>listaPorEstudiante, int id);
 }

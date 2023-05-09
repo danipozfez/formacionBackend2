@@ -30,8 +30,8 @@ public class Student {
     Profesor profesor;
     @Column(name = "rama")
     String branch;
-   // @OneToMany
-   // List<Asignatura> estudios;
+    @OneToMany
+    List<Asignatura> asignaturas;
 
     int idProfesorAsignado;
 
@@ -66,7 +66,8 @@ public class Student {
                 this.persona.getCreatedDate(),
                 this.persona.getImagenUrl(),
                 this.persona.getTerminationDate(),
-                this.persona.getOcupado()
+                this.persona.getOcupado(),
+                this.asignaturas
 
 
 
@@ -80,7 +81,8 @@ public class Student {
                 this.num_hours_week,
                 this.coments,
                 this.branch,
-                this.idProfesorAsignado
+                this.idProfesorAsignado,
+                this.asignaturas
 
 
         );

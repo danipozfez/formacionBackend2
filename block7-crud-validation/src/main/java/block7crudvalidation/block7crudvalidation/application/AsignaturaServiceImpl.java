@@ -49,16 +49,19 @@ public class AsignaturaServiceImpl implements AsignaturaService {
     }
 
     @Override
-    public AsignaturaInputDto getAsignaturaById(int id) {
-        return null;
+    public AsignaturaOutDto getAsignaturaById(int id) {
+        return asignaturaRepository.findById(id).orElseThrow().asignaturaToOutDto();
     }
 
     @Override
     public List<AsignaturaOutDto> getListaAsignaturas() {
+
         List<AsignaturaOutDto> listaAsignaturas = asignaturaRepository.findAll().stream()
                 .map(Asignatura::asignaturaToOutDto).toList();
         if (listaAsignaturas.size() == 0)
             throw new EntityNotEncontradaException("no hay asignaturas creadas");
         return listaAsignaturas;
+
+
     }
 }

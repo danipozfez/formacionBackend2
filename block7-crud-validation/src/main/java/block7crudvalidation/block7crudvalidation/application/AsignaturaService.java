@@ -13,7 +13,10 @@ public interface AsignaturaService {
 
     void deleteAsignaturaById(int id);
 
-    AsignaturaInputDto getAsignaturaById(int id);
+    AsignaturaOutDto getAsignaturaById(int id);
 
     List<AsignaturaOutDto> getListaAsignaturas();
+
+
+    //List<AsignaturaOutDto> getListaAsignaturas();
 }

@@ -1,19 +1,23 @@
 package block7crudvalidation.block7crudvalidation.application;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
+import block7crudvalidation.block7crudvalidation.domain.Asignatura;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.domain.Profesor;
 import block7crudvalidation.block7crudvalidation.domain.Student;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
+import block7crudvalidation.block7crudvalidation.repository.AsignaturaRepository;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +33,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     ProfesorRepository profesorRepository;
+    @Autowired
+    AsignaturaRepository asignaturaRepository;
 
     @Override
     public StudentOutDtoFull addStudent(StudentInputDto studentInputDto) throws Exception {
@@ -123,7 +129,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentOutDtoFull> getlistaStudentByIdProfesor(int idProfesorAsignado) {
-        List<StudentOutDtoFull>estudiantes= studentRepository.findById(idProfesorAsignado).stream().
+        List<StudentOutDtoFull> estudiantes = studentRepository.findById(idProfesorAsignado).stream().
                 map(Student::studentToOutDtoFull).collect(Collectors.toList());
         if (estudiantes.size() != 0)
             return estudiantes;
@@ -131,4 +137,23 @@ public class StudentServiceImpl implements StudentService {
         throw new EntityNotEncontradaException("no hay estudiantes asignados al profesor con id " + idProfesorAsignado);
 
     }
+
+    @Override
+    public List<AsignaturaOutDto> getListaAsginaturaPorEstudiante(int id) {
+
+
+        return null;
+    }
+
+    @Override
+    public List<AsignaturaOutDto> addAsignaturaAEstudiante(List<AsignaturaOutDto> listaPorEstudiante, int id) {
+        List<AsignaturaOutDto> lista= new ArrayList<>();
+        List<AsignaturaOutDto> listaIntroducida= asignaturaRepository.findAll().stream().
+                map(Asignatura::asignaturaToOutDto).collect(Collectors.toList());
+        for(AsignaturaOutDto asignatura:listaIntroducida)
+            lista.add(asignatura);
+        return lista;
+    }
+
+
 }

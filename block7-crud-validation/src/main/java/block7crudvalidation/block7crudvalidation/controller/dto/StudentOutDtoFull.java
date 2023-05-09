@@ -1,11 +1,13 @@
 package block7crudvalidation.block7crudvalidation.controller.dto;
 
+import block7crudvalidation.block7crudvalidation.domain.Asignatura;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +26,7 @@ public class StudentOutDtoFull {
 
     String branch;
 
-    //List<Alumnos_Estudios> estudios;
+
     int id_persona;
 
     int idProfesorAsignado;
@@ -49,6 +51,8 @@ public class StudentOutDtoFull {
     Date terminationDate;
 
     String ocupacion;
+
+    List<Asignatura> asignaturas;
 
 
 
