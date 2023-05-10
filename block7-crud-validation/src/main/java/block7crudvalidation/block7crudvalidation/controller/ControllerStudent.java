@@ -69,5 +69,9 @@ public class ControllerStudent {
         return ResponseEntity.ok().body(studentService.addAsignaturaAEstudiante(listaDeAsignaturas, id));
     }
 
+    @PutMapping("/deleteasignatura/{id}")
+    public ResponseEntity<StudentOutDtoFull>deleteAsignatura(@RequestBody List<Integer> listaDeAsignaturas,@PathVariable int id){
+        return ResponseEntity.ok().body(studentService.deleteAsignaturaAEstudiante(listaDeAsignaturas, id));
+    }
 
 }

@@ -30,4 +30,7 @@ public interface StudentService {
     List<AsignaturaOutDto>getListaAsginaturaPorEstudiante(int id);
 
     StudentOutDtoFull addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
+
+    StudentOutDtoFull deleteAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
+
 }
