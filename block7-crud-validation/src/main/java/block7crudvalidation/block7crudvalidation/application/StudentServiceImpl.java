@@ -145,7 +145,7 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-    @Override
+  /*  @Override
     public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
         Student estudianteExistente = studentRepository.findById(id).orElseThrow();
         Asignatura asignatura= null;
@@ -156,7 +156,17 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return studentRepository.save(estudianteExistente).studentToOutDtoFull();
+    }*/
+    @Override
+    public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
+        Student estudiante = studentRepository.findById(id).orElseThrow();
+        List <Asignatura> asignaturas= asignaturaRepository.findAllById(listaDeIdAsignatura);
+
+        estudiante.getAsignaturas().addAll(asignaturas);
+
+        return studentRepository.save(estudiante).studentToOutDtoFull();
     }
+
 
 
 }

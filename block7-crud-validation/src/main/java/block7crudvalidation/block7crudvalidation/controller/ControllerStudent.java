@@ -65,8 +65,8 @@ public class ControllerStudent {
     }
 
     @PutMapping("/agregarasignatura/{id}")
-    public ResponseEntity<StudentOutDtoFull>addAsignatura(@RequestBody StudentInputDto studentInputDto,int id){
-        return ResponseEntity.ok().body(studentService.updateStudent(studentInputDto, id));
+    public ResponseEntity<StudentOutDtoFull>addAsignatura(@RequestBody List<Integer> listaDeAsignaturas,@PathVariable int id){
+        return ResponseEntity.ok().body(studentService.addAsignaturaAEstudiante(listaDeAsignaturas, id));
     }
 
 
