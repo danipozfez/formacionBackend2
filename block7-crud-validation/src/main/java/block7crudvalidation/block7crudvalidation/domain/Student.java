@@ -18,16 +18,16 @@ import java.util.List;
 @AllArgsConstructor
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id_student;
-    @OneToOne(cascade = CascadeType.ALL)//permite que se elimine el estudiante y la persona
+    @OneToOne//(cascade = CascadeType.REMOVE)//permite que se elimine el estudiante y la persona
     @JoinColumn(name = "id", nullable = false, unique = true)
     Persona persona;
     @Column(name = "horas_por_semana")
     int num_hours_week;
     @Column(name = "comentarios")
     String coments;
-    @JoinColumn(name = "id_profesor", nullable = true)
+    @JoinColumn(name = "id_profesor")
     @ManyToOne(fetch = FetchType.LAZY)
     Profesor profesor;
     @Column(name = "rama")

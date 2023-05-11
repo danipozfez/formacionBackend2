@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
 
     String usuario;
@@ -38,10 +38,10 @@ public class Persona {
 
     String ocupado;
 
-    @OneToOne(cascade = CascadeType.ALL)
+  /*  @OneToOne
     Student student;
-    @OneToOne(cascade = CascadeType.ALL)
-    Profesor profesor;
+    @OneToOne
+    Profesor profesor;*/
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id = personaInputDto.getId();

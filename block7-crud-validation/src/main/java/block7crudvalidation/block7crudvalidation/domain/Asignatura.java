@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Asignatura {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Integer idAsignatura;
 
     @ManyToOne

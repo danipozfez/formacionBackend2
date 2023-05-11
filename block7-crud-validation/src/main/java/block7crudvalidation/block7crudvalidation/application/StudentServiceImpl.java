@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
             Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
             Student student = new Student(studentInputDto);
 
-            persona.setStudent(student);
+           // persona.setStudent(student);
             student.setPersona(persona);
 
             if (persona.getOcupado() == null) {
@@ -91,11 +91,15 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudentById(int id) {
-        if (studentRepository.findById(id).isEmpty())
+        Student student = studentRepository.findById(id).orElseThrow();
+        if (student == null) {
             throw new EntityNotEncontradaException("estudiante no encontrado");
-        else
-            studentRepository.deleteById(id);
+        }else {
 
+            Persona persona = personaRepository.findById(student.getPersona().getId()).orElseThrow(() -> new EntityNotFoundException("No se ha encontrado a ninguna persona por ese id"));
+            persona.setOcupado(null);
+            studentRepository.deleteById(id);
+        }
     }
 
     @Override

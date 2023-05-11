@@ -12,6 +12,7 @@ import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntity
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class ProfesorServiceImpl implements ProfesorService {
             Persona persona = personaRepository.findById(profesorInputDto.getId_persona()).orElseThrow();
             Profesor profesor = new Profesor(profesorInputDto);
 
-            persona.setProfesor(profesor);
+            //persona.setProfesor(profesor);
             profesor.setPersona(persona);
             if (persona.getOcupado() == null) {
                 persona.setOcupado("profesor");
@@ -72,11 +73,15 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public void deleteProfesorById(int id) {
-
+        Profesor profesor = profesorRepository.findById(id).orElseThrow();
         if (profesorRepository.findById(id).isEmpty())
             throw new EntityNotEncontradaException("profesor no encontrado");
-        else
+        else {
+
+            Persona persona = personaRepository.findById(profesor.getPersona().getId()).orElseThrow();
+            persona.setOcupado(null);
             profesorRepository.deleteById(id);
+        }
     }
 
     @Override

@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Profesor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id_profesor;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_persona")
     Persona persona;
     @Column(name = "comentarios")
