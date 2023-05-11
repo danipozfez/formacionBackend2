@@ -14,10 +14,12 @@ import block7crudvalidation.block7crudvalidation.repository.AsignaturaRepository
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import block7crudvalidation.block7crudvalidation.repository.ProfesorRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -145,7 +147,7 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-    @Override
+  /*  @Override
     public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
         Student estudianteExistente = studentRepository.findById(id).orElseThrow();
         Asignatura asignatura= null;
@@ -156,6 +158,23 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return studentRepository.save(estudianteExistente).studentToOutDtoFull();
+    }*/
+    @Override
+    public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
+        Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        List <Asignatura> asignaturas= asignaturaRepository.findAllById(listaDeIdAsignatura);
+
+        estudiante.getAsignaturas().addAll(asignaturas);
+
+        return studentRepository.save(estudiante).studentToOutDtoFull();
+    }
+
+    @Override
+    public StudentOutDtoFull deleteAsignaturaAEstudiante(List<Integer> listaPorEstudiante, int id) {
+        Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        List<Asignatura> asignaturas= asignaturaRepository.findAllById(listaPorEstudiante);
+        estudiante.getAsignaturas().addAll(asignaturas);
+        return studentRepository.save(estudiante).studentToOutDtoFull();
     }
 
 
