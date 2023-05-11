@@ -3,9 +3,11 @@ package block7crudvalidation.block7crudvalidation.controller;
 import block7crudvalidation.block7crudvalidation.application.PersonaServiceImpl;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
@@ -54,4 +56,12 @@ public class ControllerPersona {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("profesor/{id}")
+    public ProfesorOutputDto getProfesor(@PathVariable int id){
+        String url= "http://localhost:8081/profesor/id/"+id;
+        RestTemplate restTemplate= new RestTemplate();
+        ResponseEntity<ProfesorOutputDto>response = restTemplate.getForEntity(url,ProfesorOutputDto.class);
+        return response.getBody();
+    }
+
 }

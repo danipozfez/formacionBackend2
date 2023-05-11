@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
@@ -61,4 +62,12 @@ public class ControllerProfesor {
         return profesorService.getListaEstuantesPorProfesor(idProfesorAsignado);
     }
 
+   /* @GetMapping("profesor2/{id}")
+    public ProfesorOutputDto getProfesor(@PathVariable int id){
+        String url= "http://localhost:8081/profesor/profesor2/"+id;
+        RestTemplate restTemplate= new RestTemplate();
+        ResponseEntity<ProfesorOutputDto>response = restTemplate.getForEntity(url,ProfesorOutputDto.class);
+        return response.getBody();
+    }
+*/
 }
