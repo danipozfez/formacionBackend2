@@ -173,7 +173,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentOutDtoFull deleteAsignaturaAEstudiante(List<Integer> listaPorEstudiante, int id) {
         Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         List<Asignatura> asignaturas= asignaturaRepository.findAllById(listaPorEstudiante);
-        estudiante.getAsignaturas().addAll(asignaturas);
+        estudiante.getAsignaturas().removeAll(asignaturas);
         return studentRepository.save(estudiante).studentToOutDtoFull();
     }
 
