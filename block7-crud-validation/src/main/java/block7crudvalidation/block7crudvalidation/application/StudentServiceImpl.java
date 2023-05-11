@@ -96,7 +96,7 @@ public class StudentServiceImpl implements StudentService {
             throw new EntityNotEncontradaException("estudiante no encontrado");
         }else {
 
-            Persona persona = personaRepository.findById(student.getPersona().getId()).orElseThrow(() -> new EntityNotFoundException("No se ha encontrado a ninguna persona por ese id"));
+            Persona persona = personaRepository.findById(student.getPersona().getId()).orElseThrow();
             persona.setOcupado(null);
             studentRepository.deleteById(id);
         }
