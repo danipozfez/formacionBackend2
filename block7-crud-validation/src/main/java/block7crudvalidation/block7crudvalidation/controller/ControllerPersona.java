@@ -18,6 +18,8 @@ public class ControllerPersona {
 
     @Autowired
     PersonaServiceImpl personaService;
+    @Autowired
+    MyFeign myFeign;
 
     @PostMapping
     public ResponseEntity<PersonaOutDto> addPersona(@RequestBody PersonaInputDto personaInputDto) throws Exception {
@@ -62,6 +64,12 @@ public class ControllerPersona {
         RestTemplate restTemplate= new RestTemplate();
         ResponseEntity<ProfesorOutputDto>response = restTemplate.getForEntity(url,ProfesorOutputDto.class);
         return response.getBody();
+    }
+
+    @GetMapping("profesor2/{id}")
+    public ProfesorOutputDto getPofesor(@PathVariable int id){
+
+        return myFeign.getProfesor(id);
     }
 
 }
