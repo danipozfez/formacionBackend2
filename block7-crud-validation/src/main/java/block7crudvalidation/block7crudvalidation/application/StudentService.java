@@ -23,13 +23,13 @@ public interface StudentService {
 
     List<StudentOutDtoFull> getStudentByName(String nombre);
 
-    List<StudentOutDtoFull> getListaStudent();
+    List<StudentOutDtoSimple> getListaStudent();
 
     List<StudentOutDtoFull>getlistaStudentByIdProfesor(int id);
 
     List<AsignaturaOutDto>getListaAsginaturaPorEstudiante(int id);
 
-    StudentOutDtoFull addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
+    StudentOutDtoSimple addAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
 
     StudentOutDtoFull deleteAsignaturaAEstudiante(List<Integer>listaPorEstudiante, int id);
 

@@ -122,9 +122,9 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public List<StudentOutDtoFull> getListaStudent() {
-        if (studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList().size() != 0)
-            return studentRepository.findAll().stream().map(Student::studentToOutDtoFull).toList();
+    public List<StudentOutDtoSimple> getListaStudent() {
+        if (studentRepository.findAll().stream().map(Student::studentOutDtoSimple).toList().size() != 0)
+            return studentRepository.findAll().stream().map(Student::studentOutDtoSimple).toList();
         else
             throw new EntityNotEncontradaException("no hay ningún estudiante");
     }
@@ -147,26 +147,19 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-  /*  @Override
-    public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
-        Student estudianteExistente = studentRepository.findById(id).orElseThrow();
-        Asignatura asignatura= null;
 
-        for (Integer ids : listaDeIdAsignatura) {
-            asignatura = asignaturaRepository.findById(ids).orElseThrow();
-            estudianteExistente.getAsignaturas().add(asignatura);
-        }
-
-        return studentRepository.save(estudianteExistente).studentToOutDtoFull();
-    }*/
     @Override
-    public StudentOutDtoFull addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
+    public StudentOutDtoSimple addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
         Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         List <Asignatura> asignaturas= asignaturaRepository.findAllById(listaDeIdAsignatura);
 
         estudiante.getAsignaturas().addAll(asignaturas);
 
-        return studentRepository.save(estudiante).studentToOutDtoFull();
+        for (Asignatura asignatura:asignaturas) {
+            asignatura.getEstudiantesPorAsignatura().add(estudiante);
+        }
+
+        return studentRepository.save(estudiante).studentOutDtoSimple();
     }
 
     @Override

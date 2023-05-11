@@ -50,7 +50,7 @@ public class ControllerStudent {
             }
     }
     @GetMapping("lista")
-    public List<StudentOutDtoFull> getAll() {
+    public List<StudentOutDtoSimple> getAll() {
         return studentService.getListaStudent();
     }
 
@@ -66,7 +66,7 @@ public class ControllerStudent {
 
 
     @PutMapping("/agregarasignatura/{id}")
-    public ResponseEntity<StudentOutDtoFull>addAsignatura(@RequestBody List<Integer> listaDeAsignaturas,@PathVariable int id){
+    public ResponseEntity<StudentOutDtoSimple>addAsignatura(@RequestBody List<Integer> listaDeAsignaturas,@PathVariable int id){
         return ResponseEntity.ok().body(studentService.addAsignaturaAEstudiante(listaDeAsignaturas, id));
 
     }

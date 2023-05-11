@@ -2,10 +2,13 @@ package block7crudvalidation.block7crudvalidation.domain;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "estudios")
@@ -24,9 +27,7 @@ public class Asignatura {
     // @OneToMany(cascade = CascadeType.ALL)//será una lista
     // @JoinColumn(name = "estudiante_id")
    // List<Student> students;
-    @JoinColumn(name = "id_estudiante")
-    @ManyToOne
-    Student student;
+
     @Column(name = "asignatura")
     String nombreAsignatura;
     @Column(name = "comentarios")
@@ -35,6 +36,8 @@ public class Asignatura {
     Date initial_date;
     @Column(name = "finish_date")
     Date finish_date;
+    @ManyToMany
+    List<Student> estudiantesPorAsignatura;
 
     int id_student;
 
@@ -47,12 +50,19 @@ public class Asignatura {
     }
 
     public AsignaturaOutDto asignaturaToOutDto() {
+        List<StudentOutDtoSimple>estudiantes= new ArrayList<>();
+        if (estudiantesPorAsignatura!= null) {
+            for (Student student : estudiantesPorAsignatura) {
+                estudiantes.add(student.studentOutDtoSimple());
+            }
+        }
         return new AsignaturaOutDto(
                 this.idAsignatura,
                 this.nombreAsignatura,
                 this.comment,
                 this.initial_date,
-                this.finish_date
+                this.finish_date,
+                estudiantes
                 //this.student.id_student
         );
     }

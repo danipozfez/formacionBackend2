@@ -1,11 +1,13 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -75,14 +77,15 @@ public class Student {
     }
 
     public StudentOutDtoSimple studentOutDtoSimple() {
+
         return new StudentOutDtoSimple(
 
                 this.id_student,
                 this.num_hours_week,
                 this.coments,
                 this.branch,
-                this.idProfesorAsignado,
-                this.asignaturas
+                this.idProfesorAsignado
+
 
 
         );

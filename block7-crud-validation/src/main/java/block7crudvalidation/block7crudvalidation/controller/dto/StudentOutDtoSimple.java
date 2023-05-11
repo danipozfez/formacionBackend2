@@ -28,7 +28,7 @@ public class StudentOutDtoSimple {
 
     int idProfesorAsignado;
 
-    List<Asignatura> asignaturas;
+    //List<Asignatura> asignaturas;
 
 
 

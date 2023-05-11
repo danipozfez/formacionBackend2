@@ -2,6 +2,8 @@ package block7crudvalidation.block7crudvalidation.application;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
+import block7crudvalidation.block7crudvalidation.domain.Student;
 
 import java.util.List;
 
@@ -18,5 +20,5 @@ public interface AsignaturaService {
     List<AsignaturaOutDto> getListaAsignaturas();
 
 
-    //List<AsignaturaOutDto> getListaAsignaturas();
+    List<StudentOutDtoSimple> getStudentByAsignatura(int id);
 }

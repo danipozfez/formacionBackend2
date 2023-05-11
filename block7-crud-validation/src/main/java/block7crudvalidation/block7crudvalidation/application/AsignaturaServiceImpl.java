@@ -2,7 +2,9 @@ package block7crudvalidation.block7crudvalidation.application;
 
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
+import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import block7crudvalidation.block7crudvalidation.domain.Asignatura;
+import block7crudvalidation.block7crudvalidation.domain.Student;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.repository.AsignaturaRepository;
 import block7crudvalidation.block7crudvalidation.repository.StudentRepository;
@@ -27,15 +29,15 @@ public class AsignaturaServiceImpl implements AsignaturaService {
 
     @Override
     public AsignaturaOutDto updateAsignatura(AsignaturaInputDto asignaturaInputDto, int id) {
-        Optional<Asignatura>asignaturaExistente = asignaturaRepository.findById(id);
+        Optional<Asignatura> asignaturaExistente = asignaturaRepository.findById(id);
         Asignatura asignaturaActualizada = asignaturaExistente.get();
-        if (asignaturaInputDto.getNombreAsignatura().length()==0)
+        if (asignaturaInputDto.getNombreAsignatura().length() == 0)
             throw new EntityNotEncontradaException("la asignatura no existe");
         else
             asignaturaActualizada.setNombreAsignatura(asignaturaInputDto.getNombreAsignatura());
-            asignaturaActualizada.setComment(asignaturaInputDto.getComment());
-            asignaturaActualizada.setInitial_date(asignaturaInputDto.getInitial_date());
-            asignaturaActualizada.setFinish_date(asignaturaInputDto.getFinish_date());
+        asignaturaActualizada.setComment(asignaturaInputDto.getComment());
+        asignaturaActualizada.setInitial_date(asignaturaInputDto.getInitial_date());
+        asignaturaActualizada.setFinish_date(asignaturaInputDto.getFinish_date());
         return asignaturaRepository.save(asignaturaActualizada).asignaturaToOutDto();
     }
 
@@ -63,5 +65,13 @@ public class AsignaturaServiceImpl implements AsignaturaService {
         return listaAsignaturas;
 
 
+    }
+
+    @Override
+    public List<StudentOutDtoSimple> getStudentByAsignatura(int id) {
+        Asignatura asignatura = asignaturaRepository.findById(id).orElseThrow();
+        List<StudentOutDtoSimple> estudiantes = asignatura.asignaturaToOutDto().getEstudiantesPorAsignatura();
+
+        return estudiantes;
     }
 }
