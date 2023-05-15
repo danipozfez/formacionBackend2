@@ -1,5 +1,7 @@
 package org.bosonit.formacion;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,6 +14,7 @@ import static org.hamcrest.Matchers.*;
 class CalculadoraTest {
 
     @Test
+    @Tag("avanzada")
     void suma() {
         Calculadora calculadora = new Calculadora();
         int resultado = calculadora.suma(32, 94);
@@ -19,6 +22,7 @@ class CalculadoraTest {
     }
 
     @Test
+    @Tag("avanzada")
     void resta() {
         Calculadora calculadora = new Calculadora();
         int resultado = calculadora.resta(10, 5);
@@ -26,6 +30,7 @@ class CalculadoraTest {
     }
 
     @Test
+    @Disabled
     void division() {
         Calculadora calculadora = new Calculadora();
         double resultado = calculadora.division(10.0, 5.0);
