@@ -151,5 +151,54 @@ class CalculadoraTest {
 
     }
 
+    @Test
+    public void ejemploEndsWith3() {
 
+        assertThat("cadena bar restaurante", endsWith("so"));// Falla porque la cadena no termina en "so"
+
+    }
+
+    @Test
+    public void ejemploEndsWith4() {
+
+        assertThat("Restaurante", endsWithIgnoringCase("TE"));// Pasa porque el string "Restaurante" acaba en "TE" pero en minusculas
+
+    }
+    @Test
+    public void ejemploConstainsString() {
+
+        assertThat("cadena bar restaurante", containsString("bar"));// Pasa porque la cadena contiene "bar"
+
+    }
+
+    @Test
+    public void ejemploConstainsString2() {
+
+        assertThat("cadena bar restaurante", containsString("rar"));// Falla porque la cadena no contiene "rar"
+
+    }
+
+    @Test
+    public void ejemploConstainsString3() {
+
+        assertThat("cadena bar restaurante", containsStringIgnoringCase("BAR"));// Pasa porque la cadena contiene "BAR" en minúsculas
+
+    }
+    @Test
+    public void ejemploStringContainsInOrder() {
+
+        String sujetoDePruebas = "cadena";
+
+        assertThat(sujetoDePruebas, stringContainsInOrder("c", "e", "a"));// Pasa porque el string "cadena" tiene esa secuencia de caracteres en ese orden
+
+    }
+
+    @Test
+    public void ejemploStringContainsInOrderFallo() {
+
+        String sujetoDePruebas = "cadena";
+
+        assertThat(sujetoDePruebas, stringContainsInOrder("d", "a", "n"));// Falla porque el string "cadena" no tiene los caracteres en ese orden
+
+    }
 }
