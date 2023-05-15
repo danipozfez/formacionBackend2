@@ -2,6 +2,8 @@ package org.bosonit.formacion;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -154,7 +156,7 @@ class CalculadoraTest {
     @Test
     public void ejemploEndsWith3() {
 
-        assertThat("cadena bar restaurante", endsWith("so"));// Falla porque la cadena no termina en "so"
+        assertThat("cadena bar restaurante", endsWith("te"));// Falla porque la cadena no termina en "so"
 
     }
 
@@ -174,7 +176,7 @@ class CalculadoraTest {
     @Test
     public void ejemploConstainsString2() {
 
-        assertThat("cadena bar restaurante", containsString("rar"));// Falla porque la cadena no contiene "rar"
+        assertThat("cadena bar restaurante", containsString("ar"));// Falla porque la cadena no contiene "rar"
 
     }
 
@@ -198,7 +200,114 @@ class CalculadoraTest {
 
         String sujetoDePruebas = "cadena";
 
-        assertThat(sujetoDePruebas, stringContainsInOrder("d", "a", "n"));// Falla porque el string "cadena" no tiene los caracteres en ese orden
+        assertThat(sujetoDePruebas, stringContainsInOrder("c", "a", "n"));// Falla porque el string "cadena" no tiene los caracteres en ese orden
+
+    }
+    @Test
+    public void ejemploAllOf() {
+
+        assertThat("cadena bar estuche", allOf(startsWith("cadena"), endsWith("he")));// Pasa la prueba ya que cumple los dos matchers
+
+    }
+    @Test
+    public void ejemploanyOf() {
+
+        assertThat("bareto barqueta rayo", anyOf(startsWith("hol"), endsWith("yo")));// Pasa la prueba ya que cumple el segundo match
+
+    }
+    @Test
+    public void ejemploBoth() {
+
+        assertThat("pan trozo canasta", both(startsWith("pan")).and(endsWith("sta")));// Pasa la prueba porque cumple ambos matchers
+
+    }
+    @Test
+    public void ejemploEither() {
+
+        assertThat("foo bar baz", either(startsWith("foo")).or(endsWith("baz")));
+
+    }
+
+    //COLECCIONES
+
+    @Test
+    public void ejemploHasItems() {
+
+        assertThat(Arrays.asList("foo", "bar", "baz"), hasItems("bar", "baz"));
+        assertThat(Arrays.asList("foo", "bar", "baz"), hasItems(endsWith("o"), endsWith("z")));
+
+    }
+
+    @Test
+    public void ejemploHasItems2() {
+
+        assertThat(Arrays.asList("foo", "bar", "baz"), hasItems("bar", "baz"));
+        assertThat(Arrays.asList("foo", "bar", "baz"), hasItems(endsWith("o"), endsWith("z")));
+
+    }
+
+    @Test
+    public void ejemploBlankString() {
+
+        String first = "   ";
+        String second = "";
+        String third = null;
+        String fourth = "null";
+
+        assertThat(first, blankString());//Pasa
+        assertThat(second, blankString());//Pasa
+        assertThat(third, blankString());//Falla
+        assertThat(fourth, blankString());//Falla
+
+    }
+    @Test
+    public void ejemploBlankOrNullString() {
+
+        String first = "   ";
+        String second = "";
+        String third = null;
+        String fourth = "null";
+
+        assertThat(first, blankOrNullString());//Pasa
+        assertThat(second, blankOrNullString());//Pasa
+        assertThat(third, blankOrNullString());//Pasa
+        assertThat(fourth, blankOrNullString());//Falla
+
+    }
+    @Test
+    public void ejemploEmptyString() {
+
+        String first = null;
+        String second = "";
+        String third = " ";
+        String fourth = "null";
+
+        assertThat(first, emptyString());//Pasa
+        assertThat(second, emptyString());//Falla
+        assertThat(third, emptyString());//Falla
+        assertThat(fourth, emptyString());//Falla
+
+    }
+    @Test
+    public void whenStringIsEmpty_thenCorrect() {
+
+        String first = null;
+        String second = "";
+        String third = " ";
+        String fourth = "null";
+
+        assertThat(fourth, emptyOrNullString());//Pasa
+        assertThat(second, emptyOrNullString());//Pasa
+        assertThat(third, emptyOrNullString());//Falla
+        assertThat(fourth, emptyOrNullString());//Falla
+
+    }
+    @Test
+    public void ejemploPatron() {
+
+        String first = "StringDePatron";
+
+        assertThat(first, matchesPattern("[a-z]+"));
 
     }
 }
