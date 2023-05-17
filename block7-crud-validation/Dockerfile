@@ -2,7 +2,7 @@ FROM openjdk:17
 
 WORKDIR /app
 
-COPY block7-crud-validation-0.0.1-SNAPSHOT.jar app.jar
+COPY block7-crud-validation-0.0.1-intento2.jar app.jar
 
 EXPOSE 8080
 
