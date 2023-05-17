@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: block7crudvalidation.block7crudvalidation.Block7CrudValidati
+ onApplication
+
