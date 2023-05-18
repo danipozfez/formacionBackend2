@@ -19,18 +19,18 @@ public class PersonaOutDto {
     String password;
 
     String name;
-    String surName;
+    String surname;
 
-    String companyEmail;
+    String company_email;
 
-    String personalEmail;
+    String personal_email;
 
     String city;
 
     Boolean active;
 
-    Date createdDate;
-    String imagenUrl;
-    Date terminationDate;
+    Date created_date;
+    String imagen_url;
+    Date termination_date;
     String ocupado;
 }

@@ -1,13 +1,11 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
-import block7crudvalidation.block7crudvalidation.controller.dto.AsignaturaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,14 +58,14 @@ public class Student {
                 this.persona.getUsuario(),
                 this.persona.getPassword(),
                 this.persona.getName(),
-                this.persona.getSurName(),
-                this.persona.getCompanyEmail(),
-                this.persona.getPersonalEmail(),
+                this.persona.getSurname(),
+                this.persona.getCompany_email(),
+                this.persona.getPersonal_email(),
                 this.persona.getCity(),
                 this.persona.getActive(),
-                this.persona.getCreatedDate(),
-                this.persona.getImagenUrl(),
-                this.persona.getTerminationDate(),
+                this.persona.getCreated_date(),
+                this.persona.getImagen_url(),
+                this.persona.getTermination_date(),
                 this.persona.getOcupado(),
                 this.asignaturas
 

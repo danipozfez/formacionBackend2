@@ -1,7 +1,5 @@
 package block7crudvalidation.block7crudvalidation.controller.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,19 +17,19 @@ public class PersonaInputDto {
     String password;
 
     String name;
-    String surName;
+    String surname;
 
-    String companyEmail;
+    String company_email;
 
-    String personalEmail;
+    String personal_email;
 
     String city;
 
     Boolean active;
 
-    Date createdDate;
-    String imagenUrl;
-    Date terminationDate;
+    Date created_date;
+    String imagen_url;
+    Date termination_date;
     String ocupado;
 
 

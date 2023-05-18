@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/persona")
+//@RequestMapping("/persona")
 public class ControllerPersona {
 
     @Autowired
@@ -21,14 +21,14 @@ public class ControllerPersona {
     @Autowired
     MyFeign myFeign;
 
-    @PostMapping
-    public ResponseEntity<PersonaOutDto> addPersona(@RequestBody PersonaInputDto personaInputDto) throws Exception {
+    @PostMapping("/addperson")
+    public ResponseEntity<PersonaOutDto> addPerson(@RequestBody PersonaInputDto personaInputDto) throws Exception {
         URI location = URI.create("/persona");
         return ResponseEntity.created(location).body(personaService.addPersona(personaInputDto));
 
     }
 
-    @GetMapping("lista")
+    @GetMapping("/getall")
     public List<PersonaOutDto> getAll() {
         return personaService.getListaPersonas();
     }

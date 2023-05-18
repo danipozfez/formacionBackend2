@@ -7,7 +7,6 @@ import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontrada
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,15 +29,15 @@ public class PersonaServiceImpl implements PersonaService {
             throw new UnprocessableEntityException("password es null");
         else if (personaInputDto.getName() == null)
             throw new UnprocessableEntityException("name es null");
-        else if (personaInputDto.getCompanyEmail() == null)
+        else if (personaInputDto.getCompany_email() == null)
             throw new UnprocessableEntityException("companyEmail es null");
-        else if (personaInputDto.getPersonalEmail() == null)
+        else if (personaInputDto.getPersonal_email() == null)
             throw new UnprocessableEntityException("email personal es null");
         else if (personaInputDto.getCity() == null)
             throw new UnprocessableEntityException("city es null");
         else if (personaInputDto.getActive() == null)
             throw new UnprocessableEntityException("active es null");
-        else if (personaInputDto.getCreatedDate() == null)
+        else if (personaInputDto.getCreated_date() == null)
             throw new UnprocessableEntityException("created date es null");
         else
             return personaRepository.save(new Persona(personaInputDto)).personaToOutputDto();
@@ -58,12 +57,12 @@ public class PersonaServiceImpl implements PersonaService {
             personaActualizada.setCity(personaInputDto.getCity());
             personaActualizada.setPassword(personaInputDto.getPassword());
             personaActualizada.setActive(personaInputDto.getActive());
-            personaActualizada.setCompanyEmail(personaInputDto.getCompanyEmail());
-            personaActualizada.setCreatedDate(personaInputDto.getCreatedDate());
-            personaActualizada.setImagenUrl(personaInputDto.getImagenUrl());
-            personaActualizada.setSurName(personaInputDto.getSurName());
-            personaActualizada.setPersonalEmail(personaInputDto.getPersonalEmail());
-            personaActualizada.setTerminationDate(personaInputDto.getTerminationDate());
+            personaActualizada.setCompany_email(personaInputDto.getCompany_email());
+            personaActualizada.setCreated_date(personaInputDto.getCreated_date());
+            personaActualizada.setImagen_url(personaInputDto.getImagen_url());
+            personaActualizada.setSurname(personaInputDto.getSurname());
+            personaActualizada.setPersonal_email(personaInputDto.getPersonal_email());
+            personaActualizada.setTermination_date(personaInputDto.getTermination_date());
 
             return personaRepository.save(personaActualizada).personaToOutputDto();
         }

@@ -22,19 +22,19 @@ public class Persona {
     String password;
 
     String name;
-    String surName;
+    String surname;
 
-    String companyEmail;
+    String company_email;
 
-    String personalEmail;
+    String personal_email;
 
     String city;
 
     Boolean active;
 
-    Date createdDate;
-    String imagenUrl;
-    Date terminationDate;
+    Date created_date;
+    String imagen_url;
+    Date termination_date;
 
     String ocupado;
 
@@ -48,14 +48,14 @@ public class Persona {
         this.usuario = personaInputDto.getUsuario();
         this.password = personaInputDto.getPassword();
         this.name = personaInputDto.getName();
-        this.surName = personaInputDto.getSurName();
-        this.companyEmail = personaInputDto.getCompanyEmail();
-        this.personalEmail = personaInputDto.getPersonalEmail();
+        this.surname = personaInputDto.getSurname();
+        this.company_email = personaInputDto.getCompany_email();
+        this.personal_email = personaInputDto.getPersonal_email();
         this.city = personaInputDto.getCity();
         this.active = personaInputDto.getActive();
-        this.createdDate = personaInputDto.getCreatedDate();
-        this.imagenUrl = personaInputDto.getImagenUrl();
-        this.terminationDate = personaInputDto.getTerminationDate();
+        this.created_date = personaInputDto.getCreated_date();
+        this.imagen_url = personaInputDto.getImagen_url();
+        this.termination_date = personaInputDto.getTermination_date();
         this.ocupado=personaInputDto.getOcupado();
     }
 
@@ -65,14 +65,14 @@ public class Persona {
                 this.usuario,
                 this.password,
                 this.name,
-                this.surName,
-                this.companyEmail,
-                this.personalEmail,
+                this.surname,
+                this.company_email,
+                this.personal_email,
                 this.city,
                 this.active,
-                this.createdDate,
-                this.imagenUrl,
-                this.terminationDate,
+                this.created_date,
+                this.imagen_url,
+                this.termination_date,
                 this.ocupado
         );
     }
