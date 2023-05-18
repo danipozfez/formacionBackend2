@@ -3,6 +3,7 @@ package block7crudvalidation.block7crudvalidation.controller;
 import block7crudvalidation.block7crudvalidation.application.ProfesorServiceImpl;
 import block7crudvalidation.block7crudvalidation.controller.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -19,8 +20,8 @@ public class ControllerProfesor {
 
     @PostMapping
     public ResponseEntity<ProfesorOutputDto> addProfesor(@RequestBody ProfesorInputDto profesorInputDto) throws Exception {
-        URI location = URI.create("/profesor");
-        return ResponseEntity.created(location).body(profesorService.addProfesor(profesorInputDto));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(profesorService.addProfesor(profesorInputDto));
     }
 
     @DeleteMapping("delete/{id}")//on delete cascade???

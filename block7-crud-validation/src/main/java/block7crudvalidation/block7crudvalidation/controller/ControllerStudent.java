@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class ControllerStudent {
 
     @PostMapping
     public ResponseEntity<StudentOutDtoFull> addStudent(@RequestBody StudentInputDto studentInputDto) throws Exception {
-        URI location = URI.create("/student");
-        return ResponseEntity.created(location).body(studentService.addStudent(studentInputDto));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.addStudent(studentInputDto));
     }
 
     @DeleteMapping("delete/{id}")//on delete cascade???

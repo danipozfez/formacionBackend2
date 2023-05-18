@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +14,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/persona")
+@CrossOrigin("*")
+//@RequestMapping("/persona") COMENTADO PARA ADAPTARLO AL EJERCICIO CORS
 public class ControllerPersona {
 
     @Autowired
@@ -23,8 +25,8 @@ public class ControllerPersona {
 
     @PostMapping("/addperson")
     public ResponseEntity<PersonaOutDto> addPerson(@RequestBody PersonaInputDto personaInputDto) throws Exception {
-        URI location = URI.create("/persona");
-        return ResponseEntity.created(location).body(personaService.addPersona(personaInputDto));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(personaService.addPersona(personaInputDto));
 
     }
 

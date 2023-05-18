@@ -8,6 +8,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
 import block7crudvalidation.block7crudvalidation.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class ControllerAsignatura {
 
     @PostMapping
     public ResponseEntity<AsignaturaOutDto> addAsignatura(@RequestBody AsignaturaInputDto asignaturaInputDto) {
-        URI location = URI.create("/asignatura");
-        return ResponseEntity.created(location).body(asignaturaService.addAsignatura((asignaturaInputDto)));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(asignaturaService.addAsignatura((asignaturaInputDto)));
     }
 
     @GetMapping("lista")
