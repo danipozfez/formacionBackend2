@@ -4,6 +4,7 @@ import block7crudvalidation.block7crudvalidation.application.PersonaServiceImpl;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
+import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,9 @@ public class ControllerPersona {
 
     @Autowired
     PersonaServiceImpl personaService;
+
+    @Autowired
+    PersonaRepository personaRepository;
     @Autowired
     MyFeign myFeign;
 
@@ -72,6 +77,24 @@ public class ControllerPersona {
     public ProfesorOutputDto getPofesor(@PathVariable int id){
 
         return myFeign.getProfesor(id);
+    }
+
+    @GetMapping("/customquery")
+    public Iterable<PersonaOutDto> getPersonaByCustom (
+            @RequestParam(required = false)String name,
+            @RequestParam(required = false)String surname,
+            @RequestParam(required = false)String usuario,
+            @RequestParam(required = false)String created_date
+
+            ){
+        HashMap<String,Object> data = new HashMap<>();
+
+        if (name != null) data.put("name",name);
+        if (name != null) data.put("surname",surname);
+        if (name != null) data.put("usuario",usuario);
+        if (name != null) data.put("created_date",created_date);
+
+        return personaRepository.getPersonaByLastName(conditions);//pendiente
     }
 
 }
