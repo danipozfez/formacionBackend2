@@ -1,5 +1,8 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS;
 
-public interface FicheroRepository {
-    void saveFichero(Fichero fichero);
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FicheroRepository extends JpaRepository<Fichero,Integer> {
+
 }
