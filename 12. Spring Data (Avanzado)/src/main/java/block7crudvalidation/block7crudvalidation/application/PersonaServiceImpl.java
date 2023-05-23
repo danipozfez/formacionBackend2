@@ -6,9 +6,17 @@ import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +25,41 @@ import java.util.stream.Collectors;
 public class PersonaServiceImpl implements PersonaService {
     @Autowired
     PersonaRepository personaRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public List<PersonaOutDto> getCustomQuery(
+            HashMap<String, Object> conditions) {
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
+        Root<Persona> root = query.from(Persona.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        conditions.forEach((field, value) -> {
+            switch (field) {
+                case "name":
+                    predicates.add(cb.like(root.get(field),
+                            "%" + (String) value + "%"));
+                    break;
+                case "lastName":
+                    predicates.add(cb.like(root.get(field),
+                            "%" + (String) value + "%"));
+                    break;
+            }
+        });
+        query.select(root)
+                .where(predicates.toArray(new Predicate[predicates.size()]));
+        return entityManager
+                .createQuery(query)
+                .getResultList()
+                .stream()
+                .map(Persona::personaToOutputDto)
+                .toList();
+    }
+
+
 
     @Override
     public PersonaOutDto addPersona(PersonaInputDto personaInputDto) throws Exception {

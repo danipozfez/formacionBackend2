@@ -94,7 +94,7 @@ public class ControllerPersona {
         if (name != null) data.put("usuario",usuario);
         if (name != null) data.put("created_date",created_date);
 
-        return personaRepository.getPersonaByLastName(conditions);//pendiente
+        return personaService.getCustomQuery(data);//pendiente
     }
 
 }
