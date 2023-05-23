@@ -24,13 +24,14 @@ public class Fichero {
     private String name;
     private Date upload_date;
     private String category;
-    //private MultipartFile document;
+   // private MultipartFile document;
 
     public Fichero(FicheroInputDto ficheroInputDto) {
         this.id = ficheroInputDto.getId();
         this.name = ficheroInputDto.getName();
         this.upload_date = ficheroInputDto.getUpload_date();
         this.category = ficheroInputDto.getCategory();
+       // this.document = ficheroInputDto.getDocument();
     }
     public FicheroOutDto ficheroToOutDto(){
         return new FicheroOutDto(
