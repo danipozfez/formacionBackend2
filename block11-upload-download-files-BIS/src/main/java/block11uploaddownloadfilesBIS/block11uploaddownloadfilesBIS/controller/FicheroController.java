@@ -10,21 +10,56 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.UUID;
 
 @RestController
 public class FicheroController {
 
     @Autowired
     FicheroServiceImpl ficheroService;
+
     @PostMapping("/upload")
     public Fichero uploadFile(
             @RequestParam("file") MultipartFile file,
-            @PathVariable("tipo") String tipo,
-            @RequestParam("categoria") String categoria
-    ) throws IOException {
-        ficheroService.setUploadPath(tipo);
+            @RequestParam("path") String path
 
-        return ficheroService.saveFichero(file, categoria);
+    ) throws IOException {
+        if (!file.isEmpty()) {
+            if (!path.isEmpty()) {
+                File uploadDirectory = new File(path);
+                if (!uploadDirectory.exists()) {
+                    uploadDirectory.mkdirs();
+                }
+
+                String originalFilename = file.getOriginalFilename();
+                String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+
+                String filename = UUID.randomUUID().toString() + "." + extension;
+                String filePath = path + File.separator + filename;
+
+                Path destination = new File(filePath).toPath();
+                Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+                Fichero fileMetadata = new Fichero();
+                fileMetadata.setName(filename);
+                fileMetadata.setUpload_date(new Date());
+                fileMetadata.setCategory("");
+
+                // Guardar en la base de datos (H2)
+                // ...
+
+                return fileMetadata;
+            } else {
+                throw new IllegalArgumentException("La ruta de carga no puede estar vacía.");
+            }
+        } else {
+            throw new IllegalArgumentException("El archivo no puede estar vacío.");
+        }
     }
 }

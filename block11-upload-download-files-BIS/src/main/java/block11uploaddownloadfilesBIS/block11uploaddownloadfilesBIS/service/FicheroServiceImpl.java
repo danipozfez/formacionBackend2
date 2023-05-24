@@ -1,10 +1,7 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service;
 
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.FicheroRepository;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroInputDto;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +19,9 @@ public class FicheroServiceImpl implements FicheroService {
     public void setUploadPath(String uploadPath) {
         this.uploadPath = uploadPath;
     }
+
+
+
     @Override
     public Fichero saveFichero(MultipartFile file, String category) throws IOException {
         String originalFilename = file.getOriginalFilename();
@@ -37,9 +37,9 @@ public class FicheroServiceImpl implements FicheroService {
         file.transferTo(new File(filePath));
 
         Fichero fichero = new Fichero();
-        fichero.setName(filename);
+        fichero.setName(originalFilename);
         fichero.setUpload_date(new Date());
-        fichero.setCategory(category);
+        fichero.setCategory(extension);
 
         // Guardar en la base de datos (H2)
         // ...
