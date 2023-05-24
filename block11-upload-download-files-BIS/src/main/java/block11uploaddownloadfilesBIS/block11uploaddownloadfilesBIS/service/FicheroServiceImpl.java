@@ -1,7 +1,10 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service;
 
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.FicheroRepository;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +19,8 @@ import java.util.UUID;
 
 @Service
 public class FicheroServiceImpl implements FicheroService {
-
+    @Autowired
+    FicheroRepository ficheroRepository;
     @Override
     public Fichero saveFichero(MultipartFile file, String uploadPath) throws IOException {
 
@@ -48,12 +52,14 @@ public class FicheroServiceImpl implements FicheroService {
             throw new IllegalArgumentException("El archivo está vacío.");
         }
     }
-    // Métodos para buscar y descargar el archivo por ID o nombre
-    // ...
 
 
     @Override
     public List<FicheroOutDto> getListFicheros() {
-        return null;
+        if (ficheroRepository.findAll().stream()
+                .map(Fichero::ficheroToOutDto).toList().size() != 0)
+            return ficheroRepository.findAll().stream().map(Fichero::ficheroToOutDto).toList();
+        else
+            throw new EntityNotFoundException("no hay ningun fichero");
     }
 }
