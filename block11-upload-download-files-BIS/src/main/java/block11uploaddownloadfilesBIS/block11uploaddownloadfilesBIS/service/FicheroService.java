@@ -15,4 +15,8 @@ public interface FicheroService {
     Fichero saveFichero(MultipartFile file, String ruta) throws IOException;
 
     List<FicheroOutDto> getListFicheros();
+
+    FicheroOutDto getFicheroById(int id);
+
+    List<FicheroOutDto> getFicheroByName(String nombre);
 }

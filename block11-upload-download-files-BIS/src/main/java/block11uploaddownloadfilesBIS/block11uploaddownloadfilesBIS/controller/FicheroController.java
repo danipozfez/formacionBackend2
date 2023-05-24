@@ -6,6 +6,7 @@ import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.Fi
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service.FicheroService;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service.FicheroServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class FicheroController {
@@ -47,6 +49,21 @@ public class FicheroController {
     @GetMapping("/list")
     public List<FicheroOutDto> getAll() {
         return ficheroService.getListFicheros();
+    }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<FicheroOutDto> getPersonaById(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok().body(ficheroService.getFicheroById(id));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("nombre/{nombre}")
+    public List<FicheroOutDto> getByName(@PathVariable String nombre) {
+        return ficheroService.getFicheroByName(nombre);
     }
 
 }

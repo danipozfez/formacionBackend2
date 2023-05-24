@@ -10,12 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class FicheroServiceImpl implements FicheroService {
@@ -61,5 +59,20 @@ public class FicheroServiceImpl implements FicheroService {
             return ficheroRepository.findAll().stream().map(Fichero::ficheroToOutDto).toList();
         else
             throw new EntityNotFoundException("no hay ningun fichero");
+    }
+
+    @Override
+    public FicheroOutDto getFicheroById(int id) {
+        return ficheroRepository.findById(id).orElseThrow().ficheroToOutDto();
+    }
+    @Override
+    public List<FicheroOutDto> getFicheroByName(String nombre) {
+        List<FicheroOutDto> lista = ficheroRepository.findByName(nombre).stream().
+                map(Fichero::ficheroToOutDto).collect(Collectors.toList());
+        if (lista.size() != 0)
+            return lista;
+        else
+            throw new EntityNotFoundException("no se ha encontrado ningun fichero con ese name");
+
     }
 }
