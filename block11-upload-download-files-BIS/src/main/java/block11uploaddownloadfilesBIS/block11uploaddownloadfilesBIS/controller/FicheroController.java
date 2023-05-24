@@ -1,5 +1,6 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.controller;
 
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.FicheroRepository;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroInputDto;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
@@ -24,7 +25,10 @@ public class FicheroController {
     @Autowired
     FicheroServiceImpl ficheroService;
 
-    @PostMapping("/upload")
+    @Autowired
+    FicheroRepository ficheroRepository;
+
+   /* @PostMapping("/upload")
     public Fichero uploadFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("path") String path
@@ -55,6 +59,23 @@ public class FicheroController {
                 // ...
 
                 return fileMetadata;
+            } else {
+                throw new IllegalArgumentException("La ruta de carga no puede estar vacía.");
+            }
+        } else {
+            throw new IllegalArgumentException("El archivo no puede estar vacío.");
+        }
+    }*/
+
+    @PostMapping("/upload")
+    public FicheroOutDto uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("path") String path) throws IOException {
+        if (!file.isEmpty()) {
+            if (!path.isEmpty()) {
+
+                Fichero fichero = ficheroService.saveFichero(file, path);
+                ficheroRepository.save(fichero);
+
+                return fichero.ficheroToOutDto();
             } else {
                 throw new IllegalArgumentException("La ruta de carga no puede estar vacía.");
             }

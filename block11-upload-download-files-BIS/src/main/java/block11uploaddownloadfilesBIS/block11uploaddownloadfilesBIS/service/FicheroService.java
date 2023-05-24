@@ -13,7 +13,11 @@ public interface FicheroService {
 
    // Fichero saveFichero(MultipartFile file) throws IOException;
 
-    Fichero saveFichero(MultipartFile file, String category) throws IOException;
+    //Fichero saveFichero(MultipartFile file, String category) throws IOException;
+
+    //Fichero saveFichero(MultipartFile file) throws IOException;
+
+    Fichero saveFichero(MultipartFile file, String ruta) throws IOException;
 
     List<FicheroOutDto> getListFicheros();
 }
