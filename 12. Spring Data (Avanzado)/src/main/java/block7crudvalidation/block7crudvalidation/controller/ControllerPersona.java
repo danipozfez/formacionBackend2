@@ -90,9 +90,9 @@ public class ControllerPersona {
         HashMap<String,Object> data = new HashMap<>();
 
         if (name != null) data.put("name",name);
-        if (name != null) data.put("surname",surname);
-        if (name != null) data.put("usuario",usuario);
-        if (name != null) data.put("created_date",created_date);
+        if (surname != null) data.put("surname",surname);
+        if (usuario != null) data.put("usuario",usuario);
+        if (created_date != null) data.put("created_date",created_date);
 
         return personaRepository.getCustomQuery(data);//pendiente
     }
