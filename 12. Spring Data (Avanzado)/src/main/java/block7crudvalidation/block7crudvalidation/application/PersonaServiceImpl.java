@@ -25,39 +25,7 @@ import java.util.stream.Collectors;
 public class PersonaServiceImpl implements PersonaService {
     @Autowired
     PersonaRepository personaRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
 
-    public List<PersonaOutDto> getCustomQuery(
-            HashMap<String, Object> conditions) {
-
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
-        Root<Persona> root = query.from(Persona.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        conditions.forEach((field, value) -> {
-            switch (field) {
-                case "name":
-                    predicates.add(cb.like(root.get(field),
-                            "%" + (String) value + "%"));
-                    break;
-                case "lastName":
-                    predicates.add(cb.like(root.get(field),
-                            "%" + (String) value + "%"));
-                    break;
-            }
-        });
-        query.select(root)
-                .where(predicates.toArray(new Predicate[predicates.size()]));
-        return entityManager
-                .createQuery(query)
-                .getResultList()
-                .stream()
-                .map(Persona::personaToOutputDto)
-                .toList();
-    }
 
 
 
