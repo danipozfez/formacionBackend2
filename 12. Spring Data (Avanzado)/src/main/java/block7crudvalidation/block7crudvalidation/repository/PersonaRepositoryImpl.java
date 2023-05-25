@@ -19,14 +19,14 @@ public class PersonaRepositoryImpl {
     private EntityManager entityManager;
 
     public List<PersonaOutDto> getCustomQuery(
-            HashMap<String, Object> conditions) {
+            HashMap<String, Object> conditions, String order) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
         Root<Persona> root = query.from(Persona.class);
 
         List<Predicate> predicates = new ArrayList<>();
-        //condiciones where
+
         conditions.forEach((field, value) -> {
             switch (field) {
                 case "name":
@@ -45,6 +45,30 @@ public class PersonaRepositoryImpl {
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
                     break;
+
+
+
+                }
+
+            switch (order){
+                case "nameAsc":
+                    query.orderBy(cb.asc(root.get("name")));
+                    break;
+                case "nameDesc":
+                    query.orderBy(cb.desc(root.get("name")));
+                    break;
+                case "usuarioAsc":
+                    query.orderBy(cb.asc(root.get("usuario")));
+                    break;
+                case "usuarioDesc":
+                    query.orderBy(cb.desc(root.get("usuario")));
+                    break;
+               /* case "desc":
+                    query.orderBy(cb.desc(root.get(field)));
+*/
+                default:
+                    break;
+
             }
 
         });

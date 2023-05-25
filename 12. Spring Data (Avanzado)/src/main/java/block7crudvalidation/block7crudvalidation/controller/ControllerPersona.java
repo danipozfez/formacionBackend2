@@ -84,7 +84,8 @@ public class ControllerPersona {
             @RequestParam(required = false)String name,
             @RequestParam(required = false)String surname,
             @RequestParam(required = false)String usuario,
-            @RequestParam(required = false)String created_date
+            @RequestParam(required = false)String created_date,
+            @RequestParam(required = false)String order
 
             ){
         HashMap<String,Object> data = new HashMap<>();
@@ -93,8 +94,10 @@ public class ControllerPersona {
         if (surname != null) data.put("surname",surname);
         if (usuario != null) data.put("usuario",usuario);
         if (created_date != null) data.put("created_date",created_date);
+        if(order == null) order = "";//indica si se ordena por usuario o por nombre, si esta vacío ordena por defecto ascendente.
 
-        return personaRepository.getCustomQuery(data);//pendiente
+
+        return personaRepository.getCustomQuery(data, order);
     }
 
 }
