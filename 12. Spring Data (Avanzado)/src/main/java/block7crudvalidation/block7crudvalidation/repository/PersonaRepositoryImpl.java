@@ -26,7 +26,7 @@ public class PersonaRepositoryImpl {
         Root<Persona> root = query.from(Persona.class);
 
         List<Predicate> predicates = new ArrayList<>();
-
+        //condiciones where
         conditions.forEach((field, value) -> {
             switch (field) {
                 case "name":
