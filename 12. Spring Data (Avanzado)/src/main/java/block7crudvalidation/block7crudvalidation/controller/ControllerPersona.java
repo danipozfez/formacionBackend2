@@ -5,6 +5,7 @@ import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,7 +86,9 @@ public class ControllerPersona {
             @RequestParam(required = false)String surname,
             @RequestParam(required = false)String usuario,
             @RequestParam(required = false)String created_date,
-            @RequestParam(required = false)String order
+            @RequestParam(required = false)String order,
+            @RequestParam(required = false)Integer pageNumber,
+            @RequestParam(required = false) Integer pageSize
 
             ){
         HashMap<String,Object> data = new HashMap<>();
@@ -97,7 +100,7 @@ public class ControllerPersona {
         if(order == null) order = "";//indica si se ordena por usuario o por nombre, si esta vacío ordena por defecto ascendente.
 
 
-        return personaRepository.getCustomQuery(data, order);
+        return personaRepository.getCustomQuery(data, order,pageNumber,pageSize);
     }
 
 }

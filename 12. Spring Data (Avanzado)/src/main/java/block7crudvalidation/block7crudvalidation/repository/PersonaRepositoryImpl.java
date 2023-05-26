@@ -19,7 +19,7 @@ public class PersonaRepositoryImpl {
     private EntityManager entityManager;
 
     public List<PersonaOutDto> getCustomQuery(
-            HashMap<String, Object> conditions, String order) {
+            HashMap<String, Object> conditions, String order, int pageNumber, int pageSize) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
@@ -72,6 +72,11 @@ public class PersonaRepositoryImpl {
             }
 
         });
+
+        query.select(root)
+                .where(predicates.toArray(new Predicate[predicates.size()]));
+        int firstResult = (pageNumber - 1) * pageSize;
+
         query.select(root)
                 .where(predicates.toArray(new Predicate[predicates.size()]));
         return entityManager

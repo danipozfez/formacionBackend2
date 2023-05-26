@@ -14,5 +14,5 @@ public interface PersonaRepository extends JpaRepository<Persona, Integer> {
     //@Query("\"select s from Persona s where s.name = ?1\"")
     Persona getPersonaByName(String param);
 
-    Iterable<PersonaOutDto> getCustomQuery(HashMap<String, Object> data,String order);
+    Iterable<PersonaOutDto> getCustomQuery(HashMap<String, Object> data,String order, int pageNumer, int pageSize);
 }
