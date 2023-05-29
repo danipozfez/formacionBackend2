@@ -1,8 +1,8 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.controller;
 
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.repository.FicheroRepository;
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain.Fichero;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain.dto.FicheroOutDto;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service.FicheroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

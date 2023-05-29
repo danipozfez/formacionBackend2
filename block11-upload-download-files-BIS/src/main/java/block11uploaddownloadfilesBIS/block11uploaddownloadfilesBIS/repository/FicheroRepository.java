@@ -1,7 +1,6 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.repository;
 
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain.Fichero;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

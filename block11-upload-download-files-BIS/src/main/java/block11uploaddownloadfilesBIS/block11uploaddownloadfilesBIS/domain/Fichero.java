@@ -1,7 +1,7 @@
-package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases;
+package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain;
 
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroInputDto;
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain.dto.FicheroInputDto;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.domain.dto.FicheroOutDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
