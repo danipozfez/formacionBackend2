@@ -1,6 +1,6 @@
 package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.service;
 
-import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.FicheroRepository;
+import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.repository.FicheroRepository;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
 import jakarta.persistence.EntityNotFoundException;

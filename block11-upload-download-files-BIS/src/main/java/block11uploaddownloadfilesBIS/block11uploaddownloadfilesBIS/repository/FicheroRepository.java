@@ -1,4 +1,4 @@
-package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS;
+package block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.repository;
 
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.Fichero;
 import block11uploaddownloadfilesBIS.block11uploaddownloadfilesBIS.clases.dto.FicheroOutDto;
