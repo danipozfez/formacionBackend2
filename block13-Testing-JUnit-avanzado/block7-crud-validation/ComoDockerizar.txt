@@ -1,0 +1,51 @@
+Aquí tienes los pasos para crear una imagen Docker que incluya una aplicación Spring Boot conectada a una base de datos PostgreSQL en contenedores separados, ambos en la misma red virtual:
+
+Paso 1: Crear una red interna de Docker
+```
+docker network create mynetwork
+```
+
+Paso 2: Levantar el servidor de PostgreSQL en un contenedor
+```
+docker run --network mynetwork --name postgres_test -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=contrasena -e POSTGRES_DB=test postgres
+```
+Este comando ejecuta un contenedor PostgreSQL llamado "postgres_test" en la red "mynetwork". Se especifican las variables de entorno para el usuario, contraseña y nombre de la base de datos.
+
+Paso 3: Crear una imagen Docker para la aplicación Spring Boot
+A continuación, necesitarás crear una imagen Docker para tu aplicación Spring Boot. Asegúrate de tener el archivo JAR de la aplicación antes de ejecutar los siguientes comandos.
+
+Crea un archivo Dockerfile en el directorio raíz de tu proyecto con el siguiente contenido:
+
+```
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+COPY target/your-app.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
+```
+si se pone todo en la raiz se puede borrar tarjet/
+cambiar openjdk a la version con la que está hecho el programa
+Reemplaza "your-app.jar" con el nombre del archivo JAR de tu aplicación Spring Boot.
+
+Paso 4: Construir la imagen Docker de la aplicación Spring Boot
+```
+docker build -t spring-app .
+```
+Este comando construye una imagen Docker con el nombre "spring-app" utilizando el Dockerfile proporcionado.
+
+Paso 5: Ejecutar el contenedor de la aplicación Spring Boot
+```
+docker run --network mynetwork -p 8080:8080 --name spring-container spring-app
+```
+Este comando ejecuta el contenedor de la aplicación Spring Boot, especificando el nombre de la imagen ("spring-app") y el nombre del contenedor ("spring-container"). También se mapea el puerto 8080 del contenedor al puerto 8080 del host para permitir el acceso desde Windows.
+
+Paso 6: Realizar peticiones a la aplicación Spring Boot desde Windows
+Ahora puedes usar Postman u otra herramienta similar para realizar peticiones a la aplicación Spring Boot. La aplicación estará disponible en `http://localhost:8080`.
+
+Recuerda que debes tener la aplicación Spring Boot en funcionamiento antes de realizar las peticiones desde Windows.
+
+Con estos pasos, tendrás una imagen Docker que incluye una aplicación Spring Boot conectada a un servidor de PostgreSQL en contenedores separados, pero en la misma red virtual.
