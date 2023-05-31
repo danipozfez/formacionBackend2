@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -38,18 +39,18 @@ public class ControllerPersona {
     }*/
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deletePersonaById(@PathVariable int id) {
+    public ResponseEntity<String> deletePersonaById(@PathVariable UUID id) {
         personaService.deletePersonaById(id);
         return ResponseEntity.ok().body("la persona con id:" + id + " ha sido borrada");
     }
 
     @PutMapping("/modificar/{id}")
-    public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto, @PathVariable int id) {
+    public ResponseEntity<PersonaOutDto> modPersona(@RequestBody PersonaInputDto personaInputDto, @PathVariable UUID id) {
         return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto, id));
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<PersonaOutDto> getPersonaById(@PathVariable int id) {
+    public ResponseEntity<PersonaOutDto> getPersonaById(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok().body(personaService.getPersonaById(id));
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +48,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
+    public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, UUID id) {
         Optional<Persona> personaExistente = Optional.ofNullable(mongoTemplate.findById(id, Persona.class));
         Persona personaActualizada = personaExistente.get();
         if (personaInputDto.getName().length() == 0) {
@@ -72,7 +73,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public void deletePersonaById(int id) {
+    public void deletePersonaById(UUID id) {
         Persona persona = mongoTemplate.findById(id, Persona.class);
         if (persona == null)
             throw new EntityNotEncontradaException("persona no encontrada");
@@ -82,7 +83,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaOutDto getPersonaById(int id) {
+    public PersonaOutDto getPersonaById(UUID id) {
         return mongoTemplate.findById(id, Persona.class).personaToOutputDto();
     }
 
