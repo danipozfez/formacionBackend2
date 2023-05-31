@@ -10,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class PersonaInputDto {
 
-    int id;
+   //int id;
 
     String usuario;
 

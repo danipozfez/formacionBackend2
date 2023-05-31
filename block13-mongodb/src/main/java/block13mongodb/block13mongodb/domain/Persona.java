@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 @Getter
@@ -18,7 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Persona {
     @Id
-    int id;
+    UUID id;
 
     String usuario;
 
@@ -47,7 +48,7 @@ public class Persona {
     Profesor profesor;*/
 
     public Persona(PersonaInputDto personaInputDto) {
-        this.id = personaInputDto.getId();
+        this.id = UUID.randomUUID();
         this.usuario = personaInputDto.getUsuario();
         this.password = personaInputDto.getPassword();
         this.name = personaInputDto.getName();

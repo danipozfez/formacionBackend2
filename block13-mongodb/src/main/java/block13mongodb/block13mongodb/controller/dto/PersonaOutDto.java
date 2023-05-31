@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import java.util.Date;
 public class PersonaOutDto {
 
 
-    int id;
+    UUID id;
 
     String usuario;
 
