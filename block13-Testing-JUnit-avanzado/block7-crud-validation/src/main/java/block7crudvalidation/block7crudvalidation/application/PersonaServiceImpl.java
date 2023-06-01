@@ -6,6 +6,7 @@ import block7crudvalidation.block7crudvalidation.domain.Persona;
 import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontradaException;
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public void deletePersonaById(int id) {
         if (personaRepository.findById(id).isEmpty())
-            throw new EntityNotEncontradaException("persona no encontrada");
+            throw new EntityNotFoundException("persona no encontrada");
         else {
             personaRepository.deleteById(id);
         }
@@ -102,6 +103,6 @@ public class PersonaServiceImpl implements PersonaService {
                 .map(Persona::personaToOutputDto).toList().size() != 0)
             return personaRepository.findAll().stream().map(Persona::personaToOutputDto).toList();
         else
-            throw new EntityNotEncontradaException("no hay ninguna persona");
+            throw new EntityNotFoundException("no hay ninguna persona");
     }
 }
