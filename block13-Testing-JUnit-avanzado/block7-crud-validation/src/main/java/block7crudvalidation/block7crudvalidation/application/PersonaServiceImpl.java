@@ -48,7 +48,7 @@ public class PersonaServiceImpl implements PersonaService {
     public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
         Optional<Persona> personaExistente = personaRepository.findById(id);
         Persona personaActualizada = personaExistente.get();
-        if (personaInputDto.getName().length() == 0) {
+        if (personaInputDto.getName() == null) {
             throw new EntityNotEncontradaException("persona no encontrada");
 
         } else {
