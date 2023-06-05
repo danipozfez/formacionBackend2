@@ -14,5 +14,6 @@ public class ProfesorOutputDto {
 
     String comments;
     String branch;
-    int id_persona;
+    //int id_persona;
+    PersonaOutDto personaOutDto;
 }

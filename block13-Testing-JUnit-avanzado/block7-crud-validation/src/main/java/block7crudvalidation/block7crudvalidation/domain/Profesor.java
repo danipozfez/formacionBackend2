@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.ProfesorOutputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
@@ -37,11 +38,12 @@ public class Profesor {
     }
 
     public ProfesorOutputDto profesorToOutputDto() {
+        PersonaOutDto personaOutDto = this.persona.personaToOutputDto();
         return new ProfesorOutputDto(
                 this.id_profesor,
                 this.comments,
                 this.branch,
-                this.persona.getId()
+                personaOutDto
         );
     }
 }

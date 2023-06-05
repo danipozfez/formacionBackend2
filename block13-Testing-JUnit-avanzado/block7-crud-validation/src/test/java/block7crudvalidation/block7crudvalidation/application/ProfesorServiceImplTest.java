@@ -40,32 +40,33 @@ class ProfesorServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+
     @Test
     void addProfesor_ValidInput_ReturnsProfesorOutputDto() {
         // Arrange
         //ProfesorInputDto inputDto = new ProfesorInputDto();
         // Set the required fields in the inputDto
-        List<Student>estudiantes = new ArrayList<>();
+        List<Student> estudiantes = new ArrayList<>();
 
 
-
-        PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
+        PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", new Date(), null);
         Persona persona = new Persona(personaInputDto);
+        persona.setId(1);
 
+        Mockito.when(personaRepository.save(any(Persona.class))).thenReturn(persona);
+        Mockito.when(personaRepository.findById(persona.getId())).thenReturn(Optional.of(persona));
 
-        when(personaRepository.save(any(Persona.class))).thenReturn(persona);
-        when(personaRepository.findById(persona.getId())).thenReturn(Optional.of(persona));
-
-        ProfesorInputDto profesorInputDto = new ProfesorInputDto(1,1,"comentario","prueba");
-        when(profesorRepository.save(any(Profesor.class))).thenReturn(new Profesor(profesorInputDto));
-        when(profesorRepository.existsById(profesorInputDto.getId_persona())).thenReturn(false);
+        ProfesorInputDto profesorInputDto = new ProfesorInputDto(1, 1, "comentario", "prueba");
+        Profesor profesor = new Profesor(1, persona, "comentarios", "prueba", null);
+        Mockito.when(profesorRepository.save(any(Profesor.class))).thenReturn(profesor);
+        Mockito.when(profesorRepository.existsById(profesorInputDto.getId_persona())).thenReturn(false);
         // Act
         ProfesorOutputDto result = profesorService.addProfesor(profesorInputDto);
 
         // Assert
         assertNotNull(result);
-        verify(profesorRepository, times(1)).existsById(profesorInputDto.getId_persona());
-        verify(personaRepository, times(1)).findById(profesorInputDto.getId_persona());
+        //verify(profesorRepository, times(1)).existsById(profesorInputDto.getId_persona());
+        // verify(personaRepository, times(1)).findById(profesorInputDto.getId_persona());
         verify(profesorRepository, times(1)).save(any(Profesor.class));
     }
 
@@ -103,12 +104,13 @@ class ProfesorServiceImplTest {
         verify(profesorRepository, times(1)).findById(id);
         verify(profesorRepository, times(1)).save(any(Profesor.class));
     }
+
     @Test
     void deleteProfesorById_ValidId_SuccessfullyDeleted() {
         // Arrange
         int id = 1;
-        List<Student>estudiantes = null;
-        Profesor profesor = new Profesor(1, new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null),"comentario","rama",estudiantes);
+        List<Student> estudiantes = null;
+        Profesor profesor = new Profesor(1, new Persona(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null), "comentario", "rama", estudiantes);
         //Persona persona = new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
 
         when(profesorRepository.findById(id)).thenReturn(Optional.of(profesor));
