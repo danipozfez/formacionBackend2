@@ -34,19 +34,13 @@ class PersonaServiceImplTest {
 
     @Test
     void addPersona_ValidInput_ReturnsPersonaOutDto() throws Exception {
-        // Arrange
+
         PersonaInputDto inputDto = new PersonaInputDto(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
-        // Set the required fields in the inputDto
 
         Persona persona = new Persona(inputDto);
         PersonaOutDto expectedOutputDto = persona.personaToOutputDto();
-
         when(personaRepository.save(any(Persona.class))).thenReturn(persona);
-
-        // Act
         PersonaOutDto result = personaService.addPersona(inputDto);
-
-        // Assert
         assertNotNull(result);
         assertEquals(expectedOutputDto, result);
         verify(personaRepository, times(1)).save(any(Persona.class));
@@ -54,35 +48,33 @@ class PersonaServiceImplTest {
 
     @Test
     void addPersona_InvalidInput_ThrowsException() {
-        // Arrange
-        PersonaInputDto inputDto = new PersonaInputDto();
-        // Set the inputDto with invalid data that should throw exceptions
 
-        // Act & Assert
+        PersonaInputDto inputDto = new PersonaInputDto();
+
         assertThrows(UnsupportedOperationException.class, () -> personaService.addPersona(inputDto));
-        // Add more assertThrows for other exceptions
+
     }
 
     @Test
     void updatePersona_ValidInput_ReturnsUpdatedPersonaOutDto() {
-        // Arrange
+
         int id = 1;
         PersonaInputDto inputDto = new PersonaInputDto(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
-        // Set the required fields in the inputDto
+
 
         Persona personaExistente = new Persona();
-        // Set the existing persona data
+
 
         Persona personaActualizada = new Persona();
-        // Set the expected updated persona data
+
 
         when(personaRepository.findById(id)).thenReturn(Optional.of(personaExistente));
         when(personaRepository.save(any(Persona.class))).thenReturn(personaActualizada);
 
-        // Act
+
         PersonaOutDto result = personaService.updatePersona(inputDto, id);
 
-        // Assert
+
         assertNotNull(result);
         assertEquals(personaActualizada.personaToOutputDto(), result);
         verify(personaRepository, times(1)).findById(id);
@@ -96,10 +88,8 @@ class PersonaServiceImplTest {
 
         when(personaRepository.findById(id)).thenReturn(Optional.of(new Persona()));
 
-        // Act
         assertDoesNotThrow(() -> personaService.deletePersonaById(id));
 
-        // Assert
         verify(personaRepository, times(1)).findById(id);
         verify(personaRepository, times(1)).deleteById(id);
     }
@@ -108,7 +98,7 @@ class PersonaServiceImplTest {
 
     @Test
     void getPersonaById_ValidId_ReturnsPersonaOutDto() {
-        // Arrange
+
         int id = 1;
         Persona persona = new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
         PersonaOutDto expectedOutputDto = persona.personaToOutputDto();
@@ -172,7 +162,7 @@ class PersonaServiceImplTest {
 
         assertNotNull(result);
         assertEquals(expectedOutputDtoList.size(), result.size());
-//        verify(personaRepository, times(1)).findAll();
+
     }
 
     @Test

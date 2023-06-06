@@ -61,7 +61,6 @@ class ProfesorServiceImplTest {
         // Act
         ProfesorOutputDto result = profesorService.addProfesor(profesorInputDto);
 
-        // Assert
         assertNotNull(result);
         verify(profesorRepository, times(1)).existsById(profesorInputDto.getId_persona());
         verify(personaRepository, times(1)).findById(profesorInputDto.getId_persona());
@@ -70,11 +69,9 @@ class ProfesorServiceImplTest {
 
     @Test
     void addProfesor_InvalidInput_ThrowsException() {
-        // Arrange
-        ProfesorInputDto inputDto = new ProfesorInputDto();
-        // Set the inputDto with invalid data that should throw exceptions
 
-        // Act & Assert
+        ProfesorInputDto inputDto = new ProfesorInputDto();
+
         assertThrows(UnprocessableEntityException.class, () -> profesorService.addProfesor(inputDto));
         verify(profesorRepository, never()).existsById(anyInt());
         verify(personaRepository, never()).findById(anyInt());
@@ -108,19 +105,17 @@ class ProfesorServiceImplTest {
         int id = 1;
         List<Student> estudiantes = null;
         Profesor profesor = new Profesor(1, new Persona(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null), "comentario", "rama", estudiantes);
-        //Persona persona = new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
 
         when(profesorRepository.findById(id)).thenReturn(Optional.of(profesor));
         when(personaRepository.findById(profesor.getPersona().getId())).thenReturn(Optional.of(new Persona()));
 
-        // Act
+
         assertDoesNotThrow(() -> profesorService.deleteProfesorById(id));
 
-        // Assert
-        //verify(profesorRepository, times(1)).findById(id);
-        //verify(profesorRepository, times(1)).deleteById(id);
-        //verify(personaRepository, times(1)).findById(profesor.getPersona().getId());
-        //verify(personaRepository, times(1)).save(any(Persona.class));
+
+        verify(profesorRepository, times(1)).deleteById(id);
+        verify(personaRepository, times(1)).findById(profesor.getPersona().getId());
+
     }
 
     @Test
@@ -218,8 +213,8 @@ class ProfesorServiceImplTest {
 
         // Assert
         assertNotNull(result);
-        //assertEquals(expectedOutputDtoList, result);
-       // verify(profesorRepository, times(1)).findAll();
+        assertEquals(expectedOutputDtoList.size(), result.size());
+        // verify(profesorRepository, times(1)).findAll();
     }
 
     @Test
@@ -269,5 +264,4 @@ class ProfesorServiceImplTest {
         verify(studentRepository, times(1)).findAll();
     }
 
-    // Asegúrate de implementar pruebas adicionales según sea necesario para cubrir todos los escenarios relevantes.
 }
