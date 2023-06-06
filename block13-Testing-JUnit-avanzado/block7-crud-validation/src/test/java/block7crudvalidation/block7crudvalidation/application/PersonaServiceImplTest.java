@@ -1,4 +1,5 @@
 package block7crudvalidation.block7crudvalidation.application;
+
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.domain.Persona;
@@ -35,7 +36,7 @@ class PersonaServiceImplTest {
     @Test
     void addPersona_ValidInput_ReturnsPersonaOutDto() throws Exception {
 
-        PersonaInputDto inputDto = new PersonaInputDto(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
+        PersonaInputDto inputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
 
         Persona persona = new Persona(inputDto);
         PersonaOutDto expectedOutputDto = persona.personaToOutputDto();
@@ -59,21 +60,15 @@ class PersonaServiceImplTest {
     void updatePersona_ValidInput_ReturnsUpdatedPersonaOutDto() {
 
         int id = 1;
-        PersonaInputDto inputDto = new PersonaInputDto(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
-
+        PersonaInputDto inputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
 
         Persona personaExistente = new Persona();
 
-
         Persona personaActualizada = new Persona();
-
 
         when(personaRepository.findById(id)).thenReturn(Optional.of(personaExistente));
         when(personaRepository.save(any(Persona.class))).thenReturn(personaActualizada);
-
-
         PersonaOutDto result = personaService.updatePersona(inputDto, id);
-
 
         assertNotNull(result);
         assertEquals(personaActualizada.personaToOutputDto(), result);
@@ -95,25 +90,18 @@ class PersonaServiceImplTest {
     }
 
 
-
     @Test
     void getPersonaById_ValidId_ReturnsPersonaOutDto() {
 
         int id = 1;
-        Persona persona = new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
+        Persona persona = new Persona(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         PersonaOutDto expectedOutputDto = persona.personaToOutputDto();
-
         when(personaRepository.findById(id)).thenReturn(Optional.of(persona));
-
-
         PersonaOutDto result = personaService.getPersonaById(id);
-
-
         assertNotNull(result);
         assertEquals(expectedOutputDto, result);
         verify(personaRepository, times(1)).findById(id);
     }
-
 
 
     @Test
@@ -123,13 +111,8 @@ class PersonaServiceImplTest {
         Persona persona = new Persona();
         List<Persona> personas = Collections.singletonList(persona);
         List<PersonaOutDto> expectedOutputDtoList = Collections.singletonList(persona.personaToOutputDto());
-
         when(personaRepository.findByName(nombre)).thenReturn(personas);
-
-
         List<PersonaOutDto> result = personaService.getPersonaByName(nombre);
-
-
         assertNotNull(result);
         assertEquals(expectedOutputDtoList, result);
         verify(personaRepository, times(1)).findByName(nombre);
@@ -139,10 +122,7 @@ class PersonaServiceImplTest {
     void getPersonaByName_InvalidName_ThrowsException() {
 
         String nombre = "Daniel";
-
         when(personaRepository.findByName(nombre)).thenReturn(Collections.emptyList());
-
-
         assertThrows(EntityNotEncontradaException.class, () -> personaService.getPersonaByName(nombre));
         verify(personaRepository, times(1)).findByName(nombre);
     }
@@ -150,16 +130,11 @@ class PersonaServiceImplTest {
     @Test
     void getListaPersonas_ExistingPersonas_ReturnsListOfPersonaOutDto() {
 
-        Persona persona = new Persona(1, "daniel","password", "pepito", "pérez","lskdj@kfsj","skldj@skdfjsl","Jaén",true,new Date(),"slkdjf",null,null);
+        Persona persona = new Persona(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         List<Persona> personas = Collections.singletonList(persona);
         List<PersonaOutDto> expectedOutputDtoList = Collections.singletonList(persona.personaToOutputDto());
-
         when(personaRepository.findAll()).thenReturn(personas);
-
-
         List<PersonaOutDto> result = personaService.getListaPersonas();
-
-
         assertNotNull(result);
         assertEquals(expectedOutputDtoList.size(), result.size());
 
@@ -169,8 +144,6 @@ class PersonaServiceImplTest {
     void getListaPersonas_NoPersonas_ThrowsException() {
 
         when(personaRepository.findAll()).thenReturn(Collections.emptyList());
-
-
         assertThrows(EntityNotFoundException.class, () -> personaService.getListaPersonas());
         verify(personaRepository, times(1)).findAll();
     }
