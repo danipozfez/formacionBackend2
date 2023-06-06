@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -75,7 +76,7 @@ public class ProfesorServiceImpl implements ProfesorService {
     public void deleteProfesorById(int id) {
         Profesor profesor = profesorRepository.findById(id).orElseThrow();
         if (profesorRepository.findById(id).isEmpty())
-            throw new EntityNotEncontradaException("profesor no encontrado");
+            throw new NoSuchElementException("profesor no encontrado");
         else {
 
             Persona persona = personaRepository.findById(profesor.getPersona().getId()).orElseThrow();
@@ -102,11 +103,11 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public List<ProfesorOutputDto> getListaProfesores() {
-        if (profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList().size() != 0)
+        if (profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList().size() != 0) {
             return profesorRepository.findAll().stream().map(Profesor::profesorToOutputDto).toList();
-        else
+        } else {
             throw new EntityNotEncontradaException("no hay ningún profesor");
-
+        }
     }
 
     @Override
