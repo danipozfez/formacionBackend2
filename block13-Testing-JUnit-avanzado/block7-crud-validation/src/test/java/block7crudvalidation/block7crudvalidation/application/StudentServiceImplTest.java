@@ -100,32 +100,30 @@ class StudentServiceImplTest {
     }
     @Test
     public void testDeleteStudentById() {
-        // Datos de entrada
+
         int id = 1;
         PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         Persona persona = new Persona(personaInputDto);
         StudentInputDto studentInputDto = new StudentInputDto(1,8,"comentario","rama",1,1);
         Student student = new Student(studentInputDto);
         student.setPersona(persona);
-        // Simulación del repositorio de estudiantes
+
 
         when(studentRepository.findById(id)).thenReturn(Optional.of(student));
 
-        // Simulación del repositorio de personas
 
         when(personaRepository.findById(student.getPersona().getId())).thenReturn(Optional.of(persona));
 
-        // Ejecutar el método que queremos probar
         Assertions.assertDoesNotThrow(() -> studentService.deleteStudentById(id));
 
-        // Verificar que se invocaron los métodos adecuados
+
         verify(studentRepository, times(1)).deleteById(id);
 
     }
 
     @Test
     public void testGetStudentByIdFull() {
-        // Datos de entrada
+
         int id = 1;
         PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         Persona persona = new Persona(personaInputDto);
@@ -133,38 +131,35 @@ class StudentServiceImplTest {
         Student student = new Student(studentInputDto);
         student.setPersona(persona);
 
-        // Simulación del repositorio de estudiantes
+
 
         when(studentRepository.findById(id)).thenReturn(Optional.of(student));
 
-        // Ejecutar el método que queremos probar
+
         StudentOutDtoFull result = studentService.getStudentByIdFull(id);
 
-        // Verificar el resultado
         assertNotNull(result);
 
     }
 
     @Test
     public void testGetStudentByIdSimple() {
-        // Datos de entrada
+
         int id = 1;
 
-        // Simulación del repositorio de estudiantes
+
         Student student = new Student();
         when(studentRepository.findById(id)).thenReturn(Optional.of(student));
 
-        // Ejecutar el método que queremos probar
         StudentOutDtoSimple result = studentService.getStudentByIdSimple(id);
 
-        // Verificar el resultado
         assertNotNull(result);
 
     }
 
     @Test
     public void testGetStudentByName() {
-        // Datos de entrada
+
         String nombre = "pepito";
         PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         Persona persona = new Persona(personaInputDto);
@@ -172,15 +167,14 @@ class StudentServiceImplTest {
         Student student = new Student(studentInputDto);
         student.setPersona(persona);
 
-        // Simulación del repositorio de estudiantes
+
         List<Student> estudiantes = new ArrayList<>();
         estudiantes.add(student);
         when(studentRepository.findByPersonaName(nombre)).thenReturn(estudiantes);
 
-        // Ejecutar el método que queremos probar
         List<StudentOutDtoFull> result = studentService.getStudentByName(nombre);
         assertEquals(estudiantes.size(),result.size());
-        // Verificar el resultado
+
         assertNotNull(result);
 
     }
@@ -195,9 +189,9 @@ class StudentServiceImplTest {
         // Ejecutar el método que queremos probar
         List<StudentOutDtoSimple> result = studentService.getListaStudent();
 
-        // Verificar el resultado
+
         assertNotNull(result);
-        // Agrega más aserciones según tus necesidades
+
     }
 
     @Test
@@ -210,17 +204,16 @@ class StudentServiceImplTest {
         Student student = new Student(studentInputDto);
         student.setPersona(persona);
 
-        // Simulación del repositorio de estudiantes
         List<Student> estudiantes = new ArrayList<>();
         estudiantes.add(student);
         when(studentRepository.findById(idProfesorAsignado)).thenReturn(Optional.of(student));
 
-        // Ejecutar el método que queremos probar
+
         List<StudentOutDtoFull> result = studentService.getlistaStudentByIdProfesor(idProfesorAsignado);
 
-        // Verificar el resultado
+
         assertNotNull(result);
-        // Agrega más aserciones según tus necesidades
+
     }
 }
 
