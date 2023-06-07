@@ -27,32 +27,11 @@ public class StudentOutDtoFull {
     String branch;
 
 
-    int id_persona;
-
     int idProfesorAsignado;
 
-    String usuario;
+    PersonaOutDto personaOutDto;
 
-    String password;
-
-    String name;
-    String surName;
-
-    String companyEmail;
-
-    String personalEmail;
-
-    String city;
-
-    Boolean active;
-
-    Date createdDate;
-    String imagenUrl;
-    Date terminationDate;
-
-    String ocupacion;
-
-    List<Asignatura> asignaturas;
+    //List<Asignatura> asignaturas;
 
 
 

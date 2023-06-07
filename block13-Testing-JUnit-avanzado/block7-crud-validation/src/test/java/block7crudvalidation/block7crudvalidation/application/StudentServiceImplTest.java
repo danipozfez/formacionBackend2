@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -44,24 +45,22 @@ class StudentServiceImplTest {
     }
 
     @Test
-    public void testAddStudent() throws Exception {
+    void addStudent() throws Exception {
 
-        PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", new Date(), null);
+        PersonaInputDto personaInputDto = new PersonaInputDto(1, "daniel", "password", "pepito", "pérez", "lskdj@kfsj", "skldj@skdfjsl", "Jaén", true, new Date(), "slkdjf", null, null);
         Persona persona = new Persona(personaInputDto);
-        StudentInputDto studentInputDto = new StudentInputDto(1,5,"comentario est","ciencias",1,1);
-
-
+        StudentInputDto studentInputDto = new StudentInputDto(1,8,"comentario","rama",1,1);
         Student student = new Student(studentInputDto);
-        // Establecer los valores para student
+        student.setPersona(persona);
 
-        when(studentRepository.existsById(studentInputDto.getId_persona())).thenReturn(true);
-        when(personaRepository.findById(studentInputDto.getId_persona())).thenReturn(Optional.of(persona));
-        when(studentRepository.save(any(Student.class))).thenReturn(student);
+        Mockito.when(personaRepository.save(Mockito.any(Persona.class))).thenReturn(persona);
+        Mockito.when(studentRepository.findById(1)).thenReturn(null);
+        Mockito.when(profesorRepository.findById(1)).thenReturn(null);
+        Mockito.when(personaRepository.findById(studentInputDto.getId_persona())).thenReturn(Optional.of(persona));
+        Mockito.when(studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
 
-
-        StudentOutDtoFull result = studentService.addStudent(studentInputDto);
-
-        assertNotNull(result);
+        StudentOutDtoFull estudianteDevuelto = studentService.addStudent(studentInputDto);
+        assertNotNull(estudianteDevuelto);
     }
 
 }

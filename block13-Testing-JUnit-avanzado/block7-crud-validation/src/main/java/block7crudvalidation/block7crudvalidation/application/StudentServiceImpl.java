@@ -47,8 +47,8 @@ public class StudentServiceImpl implements StudentService {
             throw new UnprocessableEntityException("rama vacía");
         else {
             //persona= new Persona(persona.getId(),persona.getUsuario(), persona.getPassword(), persona.getName(), persona.getSurName(), persona.getCompanyEmail(), persona.getPersonalEmail(), persona.getCity(), persona.getActive(),persona.getCreatedDate(), persona.getImagenUrl(), persona.getTerminationDate());
-            if (studentRepository.existsById(studentInputDto.getId_persona()))
-                throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
+           // if (studentRepository.existsById(studentInputDto.getId_persona()))
+           //     throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
 
             Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
             Student student = new Student(studentInputDto);

@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.domain;
 
+import block7crudvalidation.block7crudvalidation.controller.dto.PersonaOutDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentInputDto;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoFull;
 import block7crudvalidation.block7crudvalidation.controller.dto.StudentOutDtoSimple;
@@ -48,26 +49,14 @@ public class Student {
     }
 
     public StudentOutDtoFull studentToOutDtoFull() {
+        PersonaOutDto personaOutDto = this.persona.personaToOutputDto();
         return new StudentOutDtoFull(
                 this.id_student,
                 this.num_hours_week,
                 this.coments,
                 this.branch,
-                this.persona.getId(),
                 this.idProfesorAsignado,
-                this.persona.getUsuario(),
-                this.persona.getPassword(),
-                this.persona.getName(),
-                this.persona.getSurname(),
-                this.persona.getCompany_email(),
-                this.persona.getPersonal_email(),
-                this.persona.getCity(),
-                this.persona.getActive(),
-                this.persona.getCreated_date(),
-                this.persona.getImagen_url(),
-                this.persona.getTermination_date(),
-                this.persona.getOcupado(),
-                this.asignaturas
+                personaOutDto
 
 
 
