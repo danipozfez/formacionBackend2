@@ -47,13 +47,13 @@ public class StudentServiceImpl implements StudentService {
             throw new UnprocessableEntityException("rama vacía");
         else {
             //persona= new Persona(persona.getId(),persona.getUsuario(), persona.getPassword(), persona.getName(), persona.getSurName(), persona.getCompanyEmail(), persona.getPersonalEmail(), persona.getCity(), persona.getActive(),persona.getCreatedDate(), persona.getImagenUrl(), persona.getTerminationDate());
-           // if (studentRepository.existsById(studentInputDto.getId_persona()))
-           //     throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
+            // if (studentRepository.existsById(studentInputDto.getId_persona()))
+            //     throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
 
             Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
             Student student = new Student(studentInputDto);
 
-           // persona.setStudent(student);
+            // persona.setStudent(student);
             student.setPersona(persona);
 
             if (persona.getOcupado() == null) {
@@ -94,7 +94,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findById(id).orElseThrow();
         if (student == null) {
             throw new EntityNotEncontradaException("estudiante no encontrado");
-        }else {
+        } else {
 
             Persona persona = personaRepository.findById(student.getPersona().getId()).orElseThrow();
             persona.setOcupado(null);
@@ -117,11 +117,12 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentOutDtoFull> getStudentByName(String nombre) {
         List<StudentOutDtoFull> listaEstudiantes = studentRepository.findByPersonaName(nombre).stream().
                 map(Student::studentToOutDtoFull).collect(Collectors.toList());
-        if (listaEstudiantes.size() != 0)
-            return listaEstudiantes;
-        else
-            throw new EntityNotEncontradaException("no se ha encontrado ningún estudiante con ese name");
+        if (listaEstudiantes.size() != 0) {
 
+            return listaEstudiantes;
+        } else {
+            throw new EntityNotEncontradaException("no se ha encontrado ningún estudiante con ese name");
+        }
     }
 
 
@@ -137,11 +138,11 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentOutDtoFull> getlistaStudentByIdProfesor(int idProfesorAsignado) {
         List<StudentOutDtoFull> estudiantes = studentRepository.findById(idProfesorAsignado).stream().
                 map(Student::studentToOutDtoFull).collect(Collectors.toList());
-        if (estudiantes.size() != 0)
+        if (estudiantes.size() != 0) {
             return estudiantes;
-
-        throw new EntityNotEncontradaException("no hay estudiantes asignados al profesor con id " + idProfesorAsignado);
-
+        } else {
+            throw new EntityNotEncontradaException("no hay estudiantes asignados al profesor con id " + idProfesorAsignado);
+        }
     }
 
     @Override
@@ -155,11 +156,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentOutDtoSimple addAsignaturaAEstudiante(List<Integer> listaDeIdAsignatura, int id) {
         Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        List <Asignatura> asignaturas= asignaturaRepository.findAllById(listaDeIdAsignatura);
+        List<Asignatura> asignaturas = asignaturaRepository.findAllById(listaDeIdAsignatura);
 
         estudiante.getAsignaturas().addAll(asignaturas);
 
-        for (Asignatura asignatura:asignaturas) {
+        for (Asignatura asignatura : asignaturas) {
             asignatura.getEstudiantesPorAsignatura().add(estudiante);
         }
 
@@ -169,7 +170,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentOutDtoFull deleteAsignaturaAEstudiante(List<Integer> listaPorEstudiante, int id) {
         Student estudiante = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        List<Asignatura> asignaturas= asignaturaRepository.findAllById(listaPorEstudiante);
+        List<Asignatura> asignaturas = asignaturaRepository.findAllById(listaPorEstudiante);
         estudiante.getAsignaturas().removeAll(asignaturas);
         return studentRepository.save(estudiante).studentToOutDtoFull();
     }
