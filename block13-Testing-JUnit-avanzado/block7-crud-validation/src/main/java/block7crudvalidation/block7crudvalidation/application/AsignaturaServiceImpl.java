@@ -29,17 +29,17 @@ public class AsignaturaServiceImpl implements AsignaturaService {
 
     @Override
     public AsignaturaOutDto updateAsignatura(AsignaturaInputDto asignaturaInputDto, int id) {
-        Optional<Asignatura> asignaturaExistente = asignaturaRepository.findById(id);
-        Asignatura asignaturaActualizada = asignaturaExistente.get();
-        if (asignaturaInputDto.getNombreAsignatura().length() == 0)
-            throw new EntityNotEncontradaException("la asignatura no existe");
-        else
-            asignaturaActualizada.setNombreAsignatura(asignaturaInputDto.getNombreAsignatura());
+        Asignatura asignaturaActualizada = asignaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotEncontradaException("La asignatura no existe"));
+
+        asignaturaActualizada.setNombreAsignatura(asignaturaInputDto.getNombreAsignatura());
         asignaturaActualizada.setComment(asignaturaInputDto.getComment());
         asignaturaActualizada.setInitial_date(asignaturaInputDto.getInitial_date());
         asignaturaActualizada.setFinish_date(asignaturaInputDto.getFinish_date());
+
         return asignaturaRepository.save(asignaturaActualizada).asignaturaToOutDto();
     }
+
 
     @Override
     public void deleteAsignaturaById(int id) {

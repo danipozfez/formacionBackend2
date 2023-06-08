@@ -7,6 +7,7 @@ import block7crudvalidation.block7crudvalidation.excepciones.EntityNotEncontrada
 import block7crudvalidation.block7crudvalidation.excepciones.UnprocessableEntityException;
 import block7crudvalidation.block7crudvalidation.repository.PersonaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,26 +48,23 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaOutDto updatePersona(PersonaInputDto personaInputDto, int id) {
-        Optional<Persona> personaExistente = personaRepository.findById(id);
-        Persona personaActualizada = personaExistente.get();
-        if (personaInputDto.getName() == null) {
-            throw new EntityNotEncontradaException("persona no encontrada");
+        Persona personaActualizada = personaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotEncontradaException("Persona no encontrada"));
 
-        } else {
-            personaActualizada.setName(personaInputDto.getName());
-            personaActualizada.setUsuario(personaInputDto.getUsuario());
-            personaActualizada.setCity(personaInputDto.getCity());
-            personaActualizada.setPassword(personaInputDto.getPassword());
-            personaActualizada.setActive(personaInputDto.getActive());
-            personaActualizada.setCompany_email(personaInputDto.getCompany_email());
-            personaActualizada.setCreated_date(personaInputDto.getCreated_date());
-            personaActualizada.setImagen_url(personaInputDto.getImagen_url());
-            personaActualizada.setSurname(personaInputDto.getSurname());
-            personaActualizada.setPersonal_email(personaInputDto.getPersonal_email());
-            personaActualizada.setTermination_date(personaInputDto.getTermination_date());
+        personaActualizada.setName(personaInputDto.getName());
+        personaActualizada.setUsuario(personaInputDto.getUsuario());
+        personaActualizada.setCity(personaInputDto.getCity());
+        personaActualizada.setPassword(personaInputDto.getPassword());
+        personaActualizada.setActive(personaInputDto.getActive());
+        personaActualizada.setCompany_email(personaInputDto.getCompany_email());
+        personaActualizada.setCreated_date(personaInputDto.getCreated_date());
+        personaActualizada.setImagen_url(personaInputDto.getImagen_url());
+        personaActualizada.setSurname(personaInputDto.getSurname());
+        personaActualizada.setPersonal_email(personaInputDto.getPersonal_email());
+        personaActualizada.setTermination_date(personaInputDto.getTermination_date());
 
-            return personaRepository.save(personaActualizada).personaToOutputDto();
-        }
+        return personaRepository.save(personaActualizada).personaToOutputDto();
+
 
     }
 
@@ -87,22 +85,32 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public List<PersonaOutDto> getPersonaByName(String nombre) {
-        List<PersonaOutDto> listaPersonas = personaRepository.findByName(nombre).stream().
-                map(Persona::personaToOutputDto).collect(Collectors.toList());
-        if (listaPersonas.size() != 0)
-            return listaPersonas;
-        else
-            throw new EntityNotEncontradaException("no se ha encontrado ninguna persona con ese name");
+        List<PersonaOutDto> listaPersonas = personaRepository.findByName(nombre)
+                .stream()
+                .map(Persona::personaToOutputDto)
+                .toList();
 
+        if (!listaPersonas.isEmpty()) {
+            return listaPersonas;
+        } else {
+            throw new EntityNotEncontradaException("No se ha encontrado ninguna persona con ese nombre");
+        }
     }
+
+
 
     @Override
     public List<PersonaOutDto> getListaPersonas() {
+        List<PersonaOutDto> listaPersonas = personaRepository.findAll()
+                .stream()
+                .map(Persona::personaToOutputDto)
+                .toList();
 
-        if (personaRepository.findAll().stream()
-                .map(Persona::personaToOutputDto).toList().size() != 0)
-            return personaRepository.findAll().stream().map(Persona::personaToOutputDto).toList();
-        else
-            throw new EntityNotFoundException("no hay ninguna persona");
+        if (!listaPersonas.isEmpty()) {
+            return listaPersonas;
+        } else {
+            throw new EntityNotFoundException("No hay ninguna persona");
+        }
     }
+
 }

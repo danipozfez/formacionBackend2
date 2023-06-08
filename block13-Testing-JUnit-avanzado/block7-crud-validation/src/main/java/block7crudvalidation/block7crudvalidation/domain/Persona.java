@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-
+@Generated
 @Entity
 @Getter
 @Setter

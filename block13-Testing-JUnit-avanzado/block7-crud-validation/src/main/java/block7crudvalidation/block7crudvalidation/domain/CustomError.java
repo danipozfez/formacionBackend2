@@ -2,12 +2,14 @@ package block7crudvalidation.block7crudvalidation.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class CustomError {
     Date timestamp;
     int httpCode;

@@ -2,9 +2,11 @@ package block7crudvalidation.block7crudvalidation.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+@Generated
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

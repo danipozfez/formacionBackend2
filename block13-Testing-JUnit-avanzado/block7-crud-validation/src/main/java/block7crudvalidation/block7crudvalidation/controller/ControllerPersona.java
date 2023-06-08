@@ -14,8 +14,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
-//@RequestMapping("/persona") COMENTADO PARA ADAPTARLO AL EJERCICIO CORS
+//@CrossOrigin("*")
+
 public class ControllerPersona {
 
     @Autowired
@@ -60,13 +60,13 @@ public class ControllerPersona {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("profesor/{id}")
+   /* @GetMapping("profesor/{id}")
     public ProfesorOutputDto getProfesor(@PathVariable int id){
         String url= "http://localhost:8081/profesor/id/"+id;
         RestTemplate restTemplate= new RestTemplate();
         ResponseEntity<ProfesorOutputDto>response = restTemplate.getForEntity(url,ProfesorOutputDto.class);
         return response.getBody();
-    }
+    }*/
 
     @GetMapping("profesor2/{id}")
     public ProfesorOutputDto getPofesor(@PathVariable int id){

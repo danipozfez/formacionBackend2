@@ -1,5 +1,6 @@
 package block7crudvalidation.block7crudvalidation.controller;
 
+import lombok.Generated;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

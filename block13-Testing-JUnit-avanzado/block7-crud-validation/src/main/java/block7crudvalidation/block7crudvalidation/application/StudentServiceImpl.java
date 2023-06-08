@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
     @Autowired
-    //@Resource
+
     StudentRepository studentRepository;
     @Autowired
     PersonaRepository personaRepository;
@@ -46,14 +46,10 @@ public class StudentServiceImpl implements StudentService {
         else if (studentInputDto.getBranch() == null)
             throw new UnprocessableEntityException("rama vacía");
         else {
-            //persona= new Persona(persona.getId(),persona.getUsuario(), persona.getPassword(), persona.getName(), persona.getSurName(), persona.getCompanyEmail(), persona.getPersonalEmail(), persona.getCity(), persona.getActive(),persona.getCreatedDate(), persona.getImagenUrl(), persona.getTerminationDate());
-            // if (studentRepository.existsById(studentInputDto.getId_persona()))
-            //     throw new UnprocessableEntityException("error, el estudiante ya ha sido añadido");
-
             Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
             Student student = new Student(studentInputDto);
 
-            // persona.setStudent(student);
+
             student.setPersona(persona);
 
             if (persona.getOcupado() == null) {
@@ -67,27 +63,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentOutDtoFull updateStudent(StudentInputDto studentInputDto, int id) {
-        Optional<Student> estudianteExistente = studentRepository.findById(id);
-        Student estudianteActualizado = estudianteExistente.get();
+        Student estudianteActualizado = studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotEncontradaException("Estudiante no encontrado"));
 
-        if (estudianteExistente.isEmpty()) {//revisar
-            throw new EntityNotEncontradaException("persona no encontrada");
+        estudianteActualizado.setBranch(studentInputDto.getBranch());
+        estudianteActualizado.setComents(studentInputDto.getComents());
+        estudianteActualizado.setNum_hours_week(studentInputDto.getNum_hours_week());
 
+        Optional<Profesor> profesor = profesorRepository.findById(studentInputDto.getIdProfesorAsignado());
+
+        if (profesor.isPresent()) {
+            estudianteActualizado.setIdProfesorAsignado(studentInputDto.getIdProfesorAsignado());
+            return studentRepository.save(estudianteActualizado).studentToOutDtoFull();
         } else {
-            estudianteActualizado.setBranch(studentInputDto.getBranch());
-            estudianteActualizado.setComents(studentInputDto.getComents());
-            estudianteActualizado.setNum_hours_week(studentInputDto.getNum_hours_week());
-
-            Optional<Profesor> profesor = profesorRepository.findById(studentInputDto.getIdProfesorAsignado());
-
-            if (profesor.isPresent()) {
-                estudianteActualizado.setIdProfesorAsignado(studentInputDto.getIdProfesorAsignado());
-                return studentRepository.save(estudianteActualizado).studentToOutDtoFull();
-            } else {
-                throw new UnprocessableEntityException("el id del profesor no existe");
-            }
+            throw new UnprocessableEntityException("El ID del profesor no existe");
         }
     }
+
 
     @Override
     public void deleteStudentById(int id) {
