@@ -63,12 +63,5 @@ public class ControllerProfesor {
         return profesorService.getListaEstuantesPorProfesor(idProfesorAsignado);
     }
 
-   /* @GetMapping("profesor2/{id}")
-    public ProfesorOutputDto getProfesor(@PathVariable int id){
-        String url= "http://localhost:8081/profesor/profesor2/"+id;
-        RestTemplate restTemplate= new RestTemplate();
-        ResponseEntity<ProfesorOutputDto>response = restTemplate.getForEntity(url,ProfesorOutputDto.class);
-        return response.getBody();
-    }
-*/
+
 }
